@@ -1,3 +1,48 @@
-﻿@model IEnumerable<Warrior>
+﻿@using Surasshu.Models
+@model IEnumerable<Warrior>
 
 
+<div class="row">
+    @foreach (Warrior warrior in Model)
+    {
+        <div class="col-sm-12 col-md-6 col-lg-4 text-center mb-3">
+            @if(warrior.IsNinja = true)
+            {
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGz5BR-UzS0eqX5j5iYeQ2VZjTjqa2rC31Nw-Xjnh6CJ1l9PlmYEyp2dwTe0_lzB1xnA&usqp=CAU"
+                     width="400"
+                     height="295"/>
+            }
+            else
+            {
+                <img src="https://png.pngtree.com/png-clipart/20210907/ourmid/pngtree-japanese-samurai-vintage-lineart-drawing-png-image_3857048.jpg"
+                     width="400"
+                     height="295"/>
+            }
+            <partial name="WarriorPartial.cshtml" model="warrior" />
+            @{
+                var quirkList = new List<Quirk>();
+                foreach (var quirks in quirkList)
+                {
+                    if (warrior.QuirkOneId == quirks.QuirkId)
+                    {
+                        <partial name="WarriorEquippedQuirkPartial.cshtml" model="quirks" />
+                    }
+                    if (warrior.Xp >= 5)
+                    {
+                        if (warrior.QuirkTwoId == quirks.QuirkId)
+                        {
+                            <partial name="WarriorEquippedQuirkPartial.cshtml" model="quirks" />
+                        }
+                        else
+                        {
+                            <h4 class="card-body">Add Quirk</h4>
+                            <form asp-controller="Warrior" asp-action="AddQuirk"></form>
+                        }
+                    }
+
+                }
+                
+            }
+        </div>
+    }
+</div>

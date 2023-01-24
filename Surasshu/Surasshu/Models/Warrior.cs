@@ -13,6 +13,8 @@ namespace Surasshu.Models
 
         public bool IsNinja { get; set; }
 
+        public int Xp { get; set; }
+
         public int Attack { get; set; }
 
         public int Defense { get; set; }
@@ -24,11 +26,12 @@ namespace Surasshu.Models
         public int? QuirkTwoId { get; set; }
         public int? QuirkThreeId { get; set; }
 
-        public Warrior(int warriorId, string warriorName, bool isNinja, int attack, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId)
+        public Warrior(int warriorId, string warriorName, bool isNinja, int xp, int attack, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId)
         {
             WarriorId = warriorId;
             WarriorName = warriorName;
             IsNinja = isNinja;
+            Xp = xp;
             Attack = attack;
             Defense = defense;
             Hp = hp;
