@@ -5,7 +5,7 @@ namespace Surasshu.Data
 {
     public class SurasshuDAL : IDataAccessLayer
     {
-        private SurasshuContext db;
+        public SurasshuContext db;
 
         public IEnumerable<Warrior> GetWarriors()
         {

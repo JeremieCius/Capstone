@@ -15,7 +15,11 @@ namespace Surasshu.Models
 
         public int Xp { get; set; }
 
-        public int Attack { get; set; }
+        public int AttackMod { get; set; }
+
+        public int DieCount { get; set; }
+
+        public int DieSide { get; set; }
 
         public int Defense { get; set; }
 
@@ -26,13 +30,15 @@ namespace Surasshu.Models
         public int? QuirkTwoId { get; set; }
         public int? QuirkThreeId { get; set; }
 
-        public Warrior(int warriorId, string warriorName, bool isNinja, int xp, int attack, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId)
+        public Warrior(int warriorId, string warriorName, bool isNinja, int xp, int attackMod, int dieCount, int dieSide, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId)
         {
             WarriorId = warriorId;
             WarriorName = warriorName;
             IsNinja = isNinja;
             Xp = xp;
-            Attack = attack;
+            AttackMod = attackMod;
+            DieCount = dieCount;
+            DieSide = dieSide;
             Defense = defense;
             Hp = hp;
             QuirkOneId = quirkOneId;

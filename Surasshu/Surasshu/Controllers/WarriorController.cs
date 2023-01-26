@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Surasshu.Data;
 using Surasshu.Interfaces;
 using Surasshu.Models;
 
@@ -10,9 +11,13 @@ namespace Surasshu.Controllers
 
         private Random random;
 
-        public WarriorController(IDataAccessLayer indal)
+        public WarriorController(IDataAccessLayer indal, SurasshuContext inContext)
         {
             this.dal = indal;
+            if (inContext.GetType() == typeof(SurasshuDAL))
+            {
+                ((SurasshuDAL)dal).db = inContext;
+            }
         }
 
         public IActionResult WarriorLocker()
@@ -26,6 +31,10 @@ namespace Surasshu.Controllers
             Warrior warrior = new Warrior();
             warrior.WarriorId = dal.GetWarriors().Count() + 1;
             warrior.WarriorName = Request.Form["NameBox"];
+            warrior.Xp = 0;
+            warrior.Attack = 1;
+            warrior.Defense = 12;
+            warrior.Hp = random.Next(20, 25);
             if (Request.Form["SelectWarriorType"] == "Ninja")
             {
                 warrior.IsNinja = true;
