@@ -11,6 +11,8 @@ namespace Surasshu.Models
         [Column(TypeName = "varchar(500)")]
         public string WarriorName { get; set; }
 
+        public string UserId { get; set; }
+
         public bool IsNinja { get; set; }
 
         public int Xp { get; set; }
@@ -21,6 +23,8 @@ namespace Surasshu.Models
 
         public int DieSide { get; set; }
 
+        public int Crit { get; set; }
+
         public int Defense { get; set; }
 
         [Column(TypeName = "varchar(500)")]
@@ -30,15 +34,17 @@ namespace Surasshu.Models
         public int? QuirkTwoId { get; set; }
         public int? QuirkThreeId { get; set; }
 
-        public Warrior(int warriorId, string warriorName, bool isNinja, int xp, int attackMod, int dieCount, int dieSide, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId)
+        public Warrior(int warriorId, string warriorName, string userId, bool isNinja, int xp, int attackMod, int dieCount, int dieSide, int crit, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId)
         {
             WarriorId = warriorId;
             WarriorName = warriorName;
+            UserId = userId;
             IsNinja = isNinja;
             Xp = xp;
             AttackMod = attackMod;
             DieCount = dieCount;
             DieSide = dieSide;
+            Crit = crit;
             Defense = defense;
             Hp = hp;
             QuirkOneId = quirkOneId;

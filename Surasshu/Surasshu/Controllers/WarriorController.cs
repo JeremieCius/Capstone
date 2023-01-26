@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Surasshu.Areas.Identity.Data;
 using Surasshu.Data;
 using Surasshu.Interfaces;
 using Surasshu.Models;
@@ -7,13 +10,16 @@ namespace Surasshu.Controllers
 {
     public class WarriorController : Controller
     {
+        private readonly UserManager<SurasshuUser> _userManager;
+
         IDataAccessLayer dal;
 
         private Random random;
 
-        public WarriorController(IDataAccessLayer indal, SurasshuContext inContext)
+        public WarriorController(IDataAccessLayer indal, SurasshuContext inContext, UserManager<SurasshuUser> userManager)
         {
             this.dal = indal;
+            this._userManager = userManager;
             if (inContext.GetType() == typeof(SurasshuDAL))
             {
                 ((SurasshuDAL)dal).db = inContext;
@@ -22,33 +28,55 @@ namespace Surasshu.Controllers
 
         public IActionResult WarriorLocker()
         {
-            return View("WarriorLocker", dal.GetWarriors());
+            return View("WarriorLocker", dal.GetWarriors(User.FindFirstValue(ClaimTypes.NameIdentifier)));
         }
 
         [HttpPost]
         public IActionResult CreateWarrior()
         {
             Warrior warrior = new Warrior();
+            warrior.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             warrior.WarriorId = dal.GetWarriors().Count() + 1;
             warrior.WarriorName = Request.Form["NameBox"];
             warrior.Xp = 0;
-            warrior.Attack = 1;
-            warrior.Defense = 12;
-            warrior.Hp = random.Next(20, 25);
+            warrior.QuirkOneId = null;
+            warrior.QuirkTwoId = null;
+            warrior.QuirkThreeId = null;
+
             if (Request.Form["SelectWarriorType"] == "Ninja")
             {
                 warrior.IsNinja = true;
+                warrior.AttackMod = 1;
+                warrior.DieCount = 2;
+                warrior.DieSide = 4;
+                warrior.Crit = 2;
+                warrior.Defense = random.Next(11, 13);
+                warrior.Hp = random.Next(20, 25);
+
             } else if (Request.Form["SelectWarriorType"] == "Samurai")
             {
                 warrior.IsNinja = false;
+                warrior.AttackMod = 1;
+                warrior.DieCount = 2;
+                warrior.DieSide = 4;
+                warrior.Crit = 2;
+                warrior.Defense = random.Next(13, 15);
+                warrior.Hp = random.Next(27, 31);
             } else if (Request.Form["SelectWarriorType"] != "Ninja" && Request.Form["SelectWarriorType"] != "Samurai")
             {
                 warrior.IsNinja = true;
+                warrior.AttackMod = 1;
+                warrior.DieCount = 2;
+                warrior.DieSide = 4;
+                warrior.Crit = 2;
+                warrior.Defense = random.Next(11, 13);
+                warrior.Hp = random.Next(20, 25);
             }
 
-
+            dal.AddWarrior(warrior);
 
             return View("WarriorLocker", dal.GetWarriors());
         }
+
     }
 }
