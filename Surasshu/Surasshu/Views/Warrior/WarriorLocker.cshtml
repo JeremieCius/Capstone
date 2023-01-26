@@ -1,4 +1,5 @@
 ﻿@using Surasshu.Models
+@using Surasshu.Data
 @model IEnumerable<Warrior>
 
 
@@ -20,8 +21,25 @@
             }
             <partial name="WarriorPartial.cshtml" model="warrior" />
             @{
-                var quirkList = new List<Quirk>();
-                foreach (var quirks in quirkList)
+                if (Model.Count() < 5)
+                {
+                    <form asp-controller="Warrior" asp-action="CreateWarrior" method="post">
+                        <div>Name</div>
+                        <input name="NameBox" id="NameBox" placeholder="Enter Name" type="text" value=""/>
+
+                        <select name="SelectWarriorType" id="SelectWarriorType">
+                            <option name="Ninja" id="Ninja">Ninja</option>
+                            <option name="Samurai" name="Samurai"></option>
+                            <option name="Any" id="Any">Any</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-success">Generate Warrior</button>
+                    </form>
+                }
+            }
+            @{/*
+                SurasshuContext db;
+                foreach (var quirks in db.Quirks)
                 {
                     if (warrior.QuirkOneId == quirks.QuirkId)
                     {
@@ -36,12 +54,14 @@
                         else
                         {
                             <h4 class="card-body">Add Quirk</h4>
-                            <form asp-controller="Warrior" asp-action="AddQuirk"></form>
+                            <form asp-controller="Warrior" asp-action="AddQuirk" >
+                                
+                            </form>
                         }
                     }
 
                 }
-                
+              */  
             }
         </div>
     }

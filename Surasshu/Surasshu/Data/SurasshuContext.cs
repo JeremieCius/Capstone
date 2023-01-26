@@ -14,5 +14,7 @@ namespace Surasshu.Data
         public DbSet<WarriorTeam> WarriorTeams { get; set; }
 
         public DbSet<Quirk> Quirks { get; set; }
+
+        public DbSet<OwnedQuirk> OwnedQuirks { get; set; }
     }
 }
