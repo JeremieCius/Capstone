@@ -72,6 +72,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[6.0.6, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration": {
+              "target": "Package",
+              "version": "[6.0.6, )"
             }
           },
           "imports": [

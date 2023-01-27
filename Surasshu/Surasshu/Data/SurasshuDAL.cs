@@ -1,4 +1,5 @@
-﻿using Surasshu.Interfaces;
+﻿using Surasshu.Areas.Identity.Data;
+using Surasshu.Interfaces;
 using Surasshu.Models;
 
 namespace Surasshu.Data
@@ -6,7 +7,12 @@ namespace Surasshu.Data
     public class SurasshuDAL : IDataAccessLayer
     {
         public SurasshuContext db;
-        
+
+        public SurasshuDAL(SurasshuContext indb)
+        {
+            this.db = indb;
+        }
+
         public IEnumerable<Warrior> GetWarriors(string userId)
         {
             List<Warrior> warriors = new List<Warrior>();
@@ -19,6 +25,11 @@ namespace Surasshu.Data
                 }
             }
             return warriors;
+        }
+
+        public IEnumerable<SurasshuUser> GetUsersInDatabase()
+        {
+            return db.AspNetUsers.ToList();
         }
 
         public int GetWarriorTableCount()
