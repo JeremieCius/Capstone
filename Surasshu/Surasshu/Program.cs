@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Surasshu.Areas.Identity.Data;
 using Surasshu.Data;
+using Surasshu.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<SurasshuUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<SurasshuContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddScoped<IDataAccessLayer, SurasshuDAL>();
 
 var app = builder.Build();
 
@@ -40,6 +45,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.Run();

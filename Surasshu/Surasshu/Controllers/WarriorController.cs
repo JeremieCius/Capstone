@@ -14,7 +14,7 @@ namespace Surasshu.Controllers
 
         IDataAccessLayer dal;
 
-        private Random random;
+        private Random random = new Random();
 
         public WarriorController(IDataAccessLayer indal, SurasshuContext inContext, UserManager<SurasshuUser> userManager)
         {
@@ -34,9 +34,10 @@ namespace Surasshu.Controllers
         [HttpPost]
         public IActionResult CreateWarrior()
         {
+            var loggedInUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Warrior warrior = new Warrior();
-            warrior.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            warrior.WarriorId = dal.GetWarriors().Count() + 1;
+            warrior.UserId = loggedInUser;
+            warrior.WarriorId = dal.GetWarriorTableCount() + 1;
             warrior.WarriorName = Request.Form["NameBox"];
             warrior.Xp = 0;
             warrior.QuirkOneId = null;
@@ -75,7 +76,7 @@ namespace Surasshu.Controllers
 
             dal.AddWarrior(warrior);
 
-            return View("WarriorLocker", dal.GetWarriors());
+            return View("WarriorLocker", dal.GetWarriors(loggedInUser));
         }
 
     }

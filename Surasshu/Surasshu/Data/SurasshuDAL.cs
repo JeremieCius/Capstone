@@ -6,10 +6,24 @@ namespace Surasshu.Data
     public class SurasshuDAL : IDataAccessLayer
     {
         public SurasshuContext db;
-
-        public IEnumerable<Warrior> GetWarriors()
+        
+        public IEnumerable<Warrior> GetWarriors(string userId)
         {
-            return db.Warriors.ToList();
+            List<Warrior> warriors = new List<Warrior>();
+            // Make a foreach to loop in the database and add results that have the userId to list
+            foreach (var userWarriors in db.Warriors)
+            {
+                if (userWarriors.UserId == userId)
+                {
+                    warriors.Add(userWarriors);
+                }
+            }
+            return warriors;
+        }
+
+        public int GetWarriorTableCount()
+        {
+            return db.Warriors.ToList().Count();
         }
 
         public Warrior GetWarrior(int? id)
