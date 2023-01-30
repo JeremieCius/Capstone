@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Surasshu.Areas.Identity.Data;
 using Surasshu.Data;
@@ -17,7 +18,10 @@ builder.Services.AddDefaultIdentity<SurasshuUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorPagesOptions(o =>
+{
+    o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+});
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
