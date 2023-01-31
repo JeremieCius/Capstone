@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Surasshu.Models;
 using System.Diagnostics;
+using Surasshu.Interfaces;
 
 namespace Surasshu.Controllers
 {
     public class HomeController : Controller
     {
+        IDataAccessLayer dal;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDataAccessLayer indal)
         {
+            dal = indal;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View("Index", dal.GetUsersInDatabase());
         }
 
         public IActionResult Privacy()

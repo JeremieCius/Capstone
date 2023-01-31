@@ -1,4 +1,5 @@
-﻿using Surasshu.Interfaces;
+﻿using Surasshu.Areas.Identity.Data;
+using Surasshu.Interfaces;
 using Surasshu.Models;
 
 namespace Surasshu.Data
@@ -7,9 +8,33 @@ namespace Surasshu.Data
     {
         public SurasshuContext db;
 
-        public IEnumerable<Warrior> GetWarriors()
+        public SurasshuDAL(SurasshuContext indb)
         {
-            return db.Warriors.ToList();
+            this.db = indb;
+        }
+
+        public IEnumerable<Warrior> GetWarriors(string userId)
+        {
+            List<Warrior> warriors = new List<Warrior>();
+            // Make a foreach to loop in the database and add results that have the userId to list
+            foreach (var userWarriors in db.Warriors)
+            {
+                if (userWarriors.UserId == userId)
+                {
+                    warriors.Add(userWarriors);
+                }
+            }
+            return warriors;
+        }
+
+        public IEnumerable<SurasshuUser> GetUsersInDatabase()
+        {
+            return db.AspNetUsers.ToList();
+        }
+
+        public int GetWarriorTableCount()
+        {
+            return db.Warriors.ToList().Count();
         }
 
         public Warrior GetWarrior(int? id)
