@@ -28,7 +28,12 @@ namespace Surasshu.Controllers
 
         public IActionResult WarriorLocker()
         {
-            return View("WarriorLocker", dal.GetWarriors(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            return View("WarriorLocker", dal.GetWarriors(userId));
         }
 
         [HttpPost]
