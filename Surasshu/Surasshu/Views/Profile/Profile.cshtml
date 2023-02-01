@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Surasshu.Areas.Identity.Data
+@inject SignInManager<SurasshuUser> SignInManager
+@inject UserManager<SurasshuUser> UserManager
+@model IEnumerable<SurasshuUser>
+
+<div>
+    @foreach (var user in Model)
+    {
+        <partial name="ProfilePartial" model="user"/>
+    }
+</div>

@@ -162,9 +162,9 @@ namespace Surasshu.Migrations
                     b.Property<int>("DieSide")
                         .HasColumnType("int");
 
-                    b.Property<string>("Hp")
+                    b.Property<int>("Hp")
                         .IsRequired()
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsNinja")
                         .HasColumnType("bit");

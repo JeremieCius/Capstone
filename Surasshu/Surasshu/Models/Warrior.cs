@@ -27,7 +27,6 @@ namespace Surasshu.Models
 
         public int Defense { get; set; }
 
-        [Column(TypeName = "varchar(500)")]
         public int Hp { get; set; }
 
         public int? QuirkOneId {get; set; }

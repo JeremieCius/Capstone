@@ -85,7 +85,7 @@ namespace Surasshu.Migrations
                     DieSide = table.Column<int>(type: "int", nullable: false),
                     Crit = table.Column<int>(type: "int", nullable: false),
                     Defense = table.Column<int>(type: "int", nullable: false),
-                    Hp = table.Column<string>(type: "varchar(500)", nullable: false),
+                    Hp = table.Column<int>(type: "int", nullable: false),
                     QuirkOneId = table.Column<int>(type: "int", nullable: true),
                     QuirkTwoId = table.Column<int>(type: "int", nullable: true),
                     QuirkThreeId = table.Column<int>(type: "int", nullable: true)

@@ -13,6 +13,11 @@ namespace Surasshu.Data
             this.db = indb;
         }
 
+        public SurasshuUser GetUser(string userId)
+        {
+            return db.AspNetUsers.FirstOrDefault(user => user.Id == userId);
+        }
+
         public IEnumerable<Warrior> GetWarriors(string userId)
         {
             List<Warrior> warriors = new List<Warrior>();
