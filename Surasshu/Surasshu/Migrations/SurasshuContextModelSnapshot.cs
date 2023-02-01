@@ -22,6 +22,28 @@ namespace Surasshu.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserClaims");
+                });
+
             modelBuilder.Entity("Surasshu.Areas.Identity.Data.SurasshuUser", b =>
                 {
                     b.Property<string>("Id")
@@ -163,7 +185,6 @@ namespace Surasshu.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Hp")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<bool>("IsNinja")

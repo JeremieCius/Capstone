@@ -18,5 +18,8 @@ namespace Surasshu.Interfaces
         void DeleteWarrior(int? id);
 
         SurasshuUser GetUser(string userId);
+
+        void UpdateUser(SurasshuUser user);
+
     }
 }

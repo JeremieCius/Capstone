@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Surasshu.Areas.Identity.Data;
 using Surasshu.Data;
@@ -28,15 +29,22 @@ namespace Surasshu.Controllers
             return View("Profile", list);
         }
 
+        [HttpPost]
         public IActionResult UpdateProfile(SurasshuUser user)
         {
+            var loggedInUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            user = dal.GetUser(loggedInUser);
             user.FirstName = Request.Form["FNameBox"];
             user.LastName = Request.Form["LNameBox"];
             user.UserName = Request.Form["UNameBox"];
             user.PhoneNumber = Request.Form["PhoneBox"];
 
-            
-            return View("Profile");
+            dal.UpdateUser(user);
+
+            List<SurasshuUser> list = new List<SurasshuUser>();
+            list.Add(user);
+
+            return View("Profile", list);
         }
     }
 }

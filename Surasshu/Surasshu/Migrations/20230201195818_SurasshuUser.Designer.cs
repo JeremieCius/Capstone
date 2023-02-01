@@ -12,7 +12,7 @@ using Surasshu.Data;
 namespace Surasshu.Migrations
 {
     [DbContext(typeof(SurasshuContext))]
-    [Migration("20230131213808_SurasshuUser")]
+    [Migration("20230201195818_SurasshuUser")]
     partial class SurasshuUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,28 @@ namespace Surasshu.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserClaims");
+                });
 
             modelBuilder.Entity("Surasshu.Areas.Identity.Data.SurasshuUser", b =>
                 {
@@ -164,9 +186,8 @@ namespace Surasshu.Migrations
                     b.Property<int>("DieSide")
                         .HasColumnType("int");
 
-                    b.Property<string>("Hp")
-                        .IsRequired()
-                        .HasColumnType("varchar(500)");
+                    b.Property<int>("Hp")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsNinja")
                         .HasColumnType("bit");

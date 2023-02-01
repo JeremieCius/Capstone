@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Surasshu.Areas.Identity.Data;
 using Surasshu.Models;
 
@@ -15,6 +16,8 @@ namespace Surasshu.Data
         public DbSet<WarriorTeam> WarriorTeams { get; set; }
 
         public DbSet<SurasshuUser> AspNetUsers { get; set; }
+
+        public DbSet<IdentityUserClaim<string>> UserClaims { get; set; }
 
         public DbSet<Quirk> Quirks { get; set; }
 

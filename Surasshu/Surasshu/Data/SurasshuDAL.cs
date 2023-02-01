@@ -18,6 +18,17 @@ namespace Surasshu.Data
             return db.AspNetUsers.FirstOrDefault(user => user.Id == userId);
         }
 
+        public IEnumerable<SurasshuUser> GetUsersInDatabase()
+        {
+            return db.AspNetUsers.ToList();
+        }
+
+        public void UpdateUser(SurasshuUser user)
+        {
+            db.AspNetUsers.Add(user);
+            db.SaveChanges();
+        }
+
         public IEnumerable<Warrior> GetWarriors(string userId)
         {
             List<Warrior> warriors = new List<Warrior>();
@@ -32,10 +43,7 @@ namespace Surasshu.Data
             return warriors;
         }
 
-        public IEnumerable<SurasshuUser> GetUsersInDatabase()
-        {
-            return db.AspNetUsers.ToList();
-        }
+        
 
         public int GetWarriorTableCount()
         {
