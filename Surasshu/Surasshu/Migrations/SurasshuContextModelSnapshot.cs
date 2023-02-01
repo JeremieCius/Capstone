@@ -8,10 +8,10 @@ using Surasshu.Data;
 
 #nullable disable
 
-namespace Surasshu.Data.Migrations
+namespace Surasshu.Migrations
 {
     [DbContext(typeof(SurasshuContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class SurasshuContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -40,11 +40,9 @@ namespace Surasshu.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -57,10 +55,6 @@ namespace Surasshu.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")

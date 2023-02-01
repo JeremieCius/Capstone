@@ -13,8 +13,6 @@ public class SurasshuUser : IdentityUser
 
     public string? LastName { get; set; }
 
-    public string Password { get; set; }
-
     public int? WarriorOneId { get; set; } = null;
 
     public int? WarriorTwoId { get; set; } = null;
@@ -29,11 +27,10 @@ public class SurasshuUser : IdentityUser
 
     public SurasshuUser() { }
 
-    public SurasshuUser(string firstName, string lastName, string username, string password, int? warriorOneId, int? warriorTwoId, int? warriorThreeId, int? warriorFourId, int? warriorFiveId)
+    public SurasshuUser(string? firstName, string? lastName, string? username, int? warriorOneId, int? warriorTwoId, int? warriorThreeId, int? warriorFourId, int? warriorFiveId)
     {
         FirstName = firstName;
         LastName = lastName;
-        Password = password;
         WarriorOneId = warriorOneId;
         WarriorTwoId = warriorTwoId;
         WarriorThreeId = warriorThreeId;
