@@ -2,17 +2,49 @@
 
 <h1>Update Profile</h1>
 <form asp-controller="Profile" asp-action="UpdateProfile" method="post">
-    <div>First Name</div>
-    <input id="FNameBox" name="FNameBox" placeholder="First Name" type="text" value="@Model.FirstName" />
-        
-    <div>Last Name</div>
-    <input id="LNameBox" name="LNameBox" placeholder="Last Name" type="text" value="@Model.LastName" />
-        
-    <div>User Name</div>
-    <input id="UNameBox" name="UNameBox" placeholder="Username" type="text" value="@Model.UserName" />
-        
-    <div>Phone Number</div>
-    <input id="PhoneBox" name="PhoneBox" placeholder="Phone Number" type="text" value="@Model.PhoneNumber" />
-        
+    @if (@Model.FirstName != null)
+    {
+        <div>First Name</div>
+        <input id="FNameBox" name="FNameBox" placeholder="First Name" type="text" value="@Model.FirstName"/>
+    }
+    else
+    {
+        <div>First Name</div>
+        <input id="FNameBox" name="FNameBox" placeholder="First Name" type="text" value=""/>
+    }
+    
+    @if (@Model.LastName != null)
+    {
+        <div>Last Name</div>
+        <input id="LNameBox" name="LNameBox" placeholder="Last Name" type="text" value="@Model.LastName"/>
+    }
+    else
+    {
+        <div>Last Name</div>
+        <input id="LNameBox" name="LNameBox" placeholder="Last Name" type="text" value=""/>
+    }
+    
+    @if (@Model.UserName != null)
+    {
+        <div>User Name</div>
+        <input id="UNameBox" name="UNameBox" placeholder="Username" type="text" value="@Model.UserName"/>
+    }
+    else
+    {
+        <div>User Name</div>
+        <input id="UNameBox" name="UNameBox" placeholder="Username" type="text" value=""/>
+    }
+    
+    @if (@Model.PhoneNumber != null)
+    {
+        <div>Phone Number</div>
+        <input id="PhoneBox" name="PhoneBox" placeholder="Phone Number" type="text" value="@Model.PhoneNumber"/>
+    }
+    else
+    {
+        <div>Phone Number</div>
+        <input id="PhoneBox" name="PhoneBox" placeholder="Phone Number" type="text" value=""/>
+    }
+
     <button type="submit" class="btn btn-success">Update</button>
 </form>
