@@ -22,9 +22,11 @@ namespace Surasshu.Controllers
                 ((SurasshuDAL)dal).db = inContext;
             }
         }
+
         public IActionResult GetProfile(string userId)
         {
-            List<SurasshuUser> list = new List<SurasshuUser>();
+            userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List <SurasshuUser> list = new List<SurasshuUser>();
             list.Add(dal.GetUser(userId));
             return View("Profile", list);
         }
