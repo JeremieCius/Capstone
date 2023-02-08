@@ -84,5 +84,9 @@ namespace Surasshu.Controllers
             return View("WarriorLocker", dal.GetWarriors(loggedInUser));
         }
 
+        public IActionResult SearchBattlePage()
+        {
+            return View("SearchForBattle");
+        }
     }
 }

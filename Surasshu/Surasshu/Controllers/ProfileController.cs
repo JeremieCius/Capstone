@@ -46,7 +46,7 @@ namespace Surasshu.Controllers
             List<SurasshuUser> list = new List<SurasshuUser>();
             list.Add(user);
 
-            return View("Profile", list);
+            return Redirect("/Home/Index");
         }
     }
 }

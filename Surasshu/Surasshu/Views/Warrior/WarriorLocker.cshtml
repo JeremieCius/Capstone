@@ -10,33 +10,16 @@
             @if(warrior.IsNinja)
             {
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGz5BR-UzS0eqX5j5iYeQ2VZjTjqa2rC31Nw-Xjnh6CJ1l9PlmYEyp2dwTe0_lzB1xnA&usqp=CAU"
-                     width="400"
-                     height="295"/>
+                     width="250"
+                     height="184"/>
             }
             else
             {
-                <img src="https://png.pngtree.com/png-clipart/20210907/ourmid/pngtree-japanese-samurai-vintage-lineart-drawing-png-image_3857048.jpg"
-                     width="400"
-                     height="295"/>
+                <img src="https://static.vecteezy.com/system/resources/previews/005/644/134/original/clip-art-of-samurai-with-silhouette-design-vector.jpg"
+                     width="250"
+                     height="184">
             }
             <partial name="WarriorPartial.cshtml" model="warrior" />
-            @{
-                if (Model.Count() < 5)
-                {
-                    <form asp-controller="Warrior" asp-action="CreateWarrior" method="post">
-                        <div>Name</div>
-                        <input name="NameBox" id="NameBox" placeholder="Enter Name" type="text" value=""/>
-
-                        <select name="SelectWarriorType" id="SelectWarriorType">
-                            <option name="Ninja" id="Ninja">Ninja</option>
-                            <option name="Samurai" name="Samurai"></option>
-                            <option name="Any" id="Any">Any</option>
-                        </select>
-
-                        <button type="submit" class="btn btn-success">Generate Warrior</button>
-                    </form>
-                }
-            }
             @{/*
                 SurasshuContext db;
                 foreach (var quirks in db.Quirks)
@@ -65,4 +48,16 @@
             }
         </div>
     }
+    <form asp-controller="Warrior" asp-action="CreateWarrior" method="post">
+        <div>Name</div>
+        <input name="NameBox" id="NameBox" placeholder="Enter Name" type="text" value=""/>
+
+        <select name="SelectWarriorType" id="SelectWarriorType">
+            <option name="Ninja" id="Ninja">Ninja</option>
+            <option name="Samurai" name="Samurai">Samurai</option>
+            <option name="Any" id="Any">Any</option>
+        </select>
+
+        <button type="submit" class="btn btn-success">Generate Warrior</button>
+    </form>
 </div>

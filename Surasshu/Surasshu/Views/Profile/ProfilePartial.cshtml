@@ -2,6 +2,7 @@
 
 <h1>Update Profile</h1>
 <form asp-controller="Profile" asp-action="UpdateProfile" method="post">
+    <div id="UpdateSuccessful" name="UpdateSuccessful" class="text-success"></div>
     @if (@Model.FirstName != null)
     {
         <div>First Name</div>
@@ -12,7 +13,7 @@
         <div>First Name</div>
         <input id="FNameBox" name="FNameBox" placeholder="First Name" type="text" value=""/>
     }
-    
+
     @if (@Model.LastName != null)
     {
         <div>Last Name</div>
@@ -23,7 +24,7 @@
         <div>Last Name</div>
         <input id="LNameBox" name="LNameBox" placeholder="Last Name" type="text" value=""/>
     }
-    
+
     @if (@Model.UserName != null)
     {
         <div>User Name</div>
@@ -34,7 +35,7 @@
         <div>User Name</div>
         <input id="UNameBox" name="UNameBox" placeholder="Username" type="text" value=""/>
     }
-    
+
     @if (@Model.PhoneNumber != null)
     {
         <div>Phone Number</div>

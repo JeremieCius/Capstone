@@ -1,4 +1,5 @@
-﻿using Surasshu.Areas.Identity.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Surasshu.Areas.Identity.Data;
 using Surasshu.Interfaces;
 using Surasshu.Models;
 
@@ -25,7 +26,7 @@ namespace Surasshu.Data
 
         public void UpdateUser(SurasshuUser user)
         {
-            db.AspNetUsers.Add(user);
+            db.AspNetUsers.Update(user);
             db.SaveChanges();
         }
 
@@ -57,8 +58,14 @@ namespace Surasshu.Data
 
         public void AddWarrior(Warrior warrior)
         {
-            db.Add(warrior);
-            db.SaveChanges();
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                db.Warriors.Add(warrior);
+                db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Warriors ON");
+                db.SaveChanges();
+                db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Warriors OFF");
+                transaction.Commit();
+            }
         }
 
         public void DeleteWarrior(int? id)
