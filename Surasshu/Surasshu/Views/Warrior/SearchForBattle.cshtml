@@ -17,8 +17,8 @@
                      height="148">
             }
             <partial name="WarriorPartial.cshtml" model="warrior" />
-            <form asp-controller="Warrior">
-
+            <form asp-controller="Warrior" asp-action="SendOutToSoloBattle" asp-route-id="@warrior.WarriorId" method="post">
+                <button type="submit">Send out to battle</button>
             </form>
             @{/*
                 SurasshuContext db;

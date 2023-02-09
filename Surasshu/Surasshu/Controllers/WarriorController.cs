@@ -94,6 +94,16 @@ namespace Surasshu.Controllers
             return View("SearchForBattle", dal.GetWarriors(userId));
         }
 
-        
+        public IActionResult SendOutToSoloBattle()
+        {
+            /*
+             * So this is when we get a bit spicy
+             * Rather than having the actual code for the battle itself here...
+             * We're going to simply have the necessary fields for copies of the user's warriors and then send them to the cshtml itself
+             * and then have the code for the battle occur in the cshtml itself...
+             * Crazy right?
+             */
+            return View("Battlefield");
+        }
     }
 }
