@@ -117,7 +117,7 @@ namespace Surasshu.Controllers
         }
         */
 
-       public IActionResult SendOutToBattle()
+       public IActionResult SendOutToSoloBattle()
        {
            return View("Battlefield");
        }
