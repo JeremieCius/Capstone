@@ -360,8 +360,26 @@ namespace Surasshu.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsBotAccount")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPlatinumMember")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WarriorEightId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorEighteenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorElevenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorFifteenId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("WarriorFiveId")
                         .HasColumnType("int");
@@ -369,10 +387,46 @@ namespace Surasshu.Migrations
                     b.Property<int?>("WarriorFourId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("WarriorFourteenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorNineId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorNineteenId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("WarriorOneId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("WarriorSevenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorSeventeenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorSixId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorSixteenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorTenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorThirteenId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("WarriorThreeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorTwelveId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorTwentyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarriorTwentyOneId")
                         .HasColumnType("int");
 
                     b.Property<int?>("WarriorTwoId")

@@ -1,5 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<Warrior>
+
+<div class="row">
+    @foreach (Warrior warrior in Model)
+    {
+        <div class="col-sm-12 col-md-6 col-lg-4 text-center mb-3">
+            @if(warrior.IsNinja)
+            {
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGz5BR-UzS0eqX5j5iYeQ2VZjTjqa2rC31Nw-Xjnh6CJ1l9PlmYEyp2dwTe0_lzB1xnA&usqp=CAU"
+                     width="200"
+                     height="148"/>
+            }
+            else
+            {
+                <img src="https://static.vecteezy.com/system/resources/previews/005/644/134/original/clip-art-of-samurai-with-silhouette-design-vector.jpg"
+                     width="200"
+                     height="148">
+            }
+            <partial name="WarriorPartial.cshtml" model="warrior" />
+            <form asp-controller="Warrior">
+
+            </form>
+            @{/*
+                SurasshuContext db;
+                foreach (var quirks in db.Quirks)
+                {
+                    if (warrior.QuirkOneId == quirks.QuirkId)
+                    {
+                        <partial name="WarriorEquippedQuirkPartial.cshtml" model="quirks" />
+                    }
+                    if (warrior.Xp >= 5)
+                    {
+                        if (warrior.QuirkTwoId == quirks.QuirkId)
+                        {
+                            <partial name="WarriorEquippedQuirkPartial.cshtml" model="quirks" />
+                        }
+                        else
+                        {
+                            <h4 class="card-body">Add Quirk</h4>
+                            <form asp-controller="Warrior" asp-action="AddQuirk" >
+                                
+                            </form>
+                        }
+                    }
+
+                }
+              */  
+            }
+        </div>
+    }
+</div>

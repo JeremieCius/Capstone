@@ -86,7 +86,14 @@ namespace Surasshu.Controllers
 
         public IActionResult SearchBattlePage()
         {
-            return View("SearchForBattle");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            return View("SearchForBattle", dal.GetWarriors(userId));
         }
+
+        
     }
 }

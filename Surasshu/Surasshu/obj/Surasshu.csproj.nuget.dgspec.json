@@ -76,6 +76,18 @@
             "Microsoft.VisualStudio.Web.CodeGeneration": {
               "target": "Package",
               "version": "[6.0.6, )"
+            },
+            "PayPal": {
+              "target": "Package",
+              "version": "[1.9.1, )"
+            },
+            "PayPalCoreSDK": {
+              "target": "Package",
+              "version": "[1.7.1, )"
+            },
+            "PayPalMerchantSDK": {
+              "target": "Package",
+              "version": "[2.16.250, )"
             }
           },
           "imports": [
