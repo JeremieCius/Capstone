@@ -7,17 +7,21 @@
     @foreach (Warrior warrior in Model)
     {
         <div class="col-sm-12 col-md-6 col-lg-4 text-center mb-3">
-            @if(warrior.IsNinja)
+            @if(warrior.ImageLink == null && warrior.IsNinja)
             {
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGz5BR-UzS0eqX5j5iYeQ2VZjTjqa2rC31Nw-Xjnh6CJ1l9PlmYEyp2dwTe0_lzB1xnA&usqp=CAU"
                      width="200"
                      height="148"/>
             }
-            else
+            else if (warrior.ImageLink == null && !warrior.IsNinja)
             {
                 <img src="https://static.vecteezy.com/system/resources/previews/005/644/134/original/clip-art-of-samurai-with-silhouette-design-vector.jpg"
                      width="200"
                      height="148">
+            }
+            else
+            {
+                <img src="@warrior.ImageLink"/>
             }
             <partial name="WarriorPartial.cshtml" model="warrior" />
             @{/*
@@ -51,6 +55,7 @@
     <form asp-controller="Warrior" asp-action="CreateWarrior" method="post">
         <div>Name</div>
         <input name="NameBox" id="NameBox" placeholder="Enter Name" type="text" value=""/>
+        <input name="ImageBox" id="ImageBox" placeholder="Enter Image Link" type="text" value=""/>
 
         <select name="SelectWarriorType" id="SelectWarriorType">
             <option name="Ninja" id="Ninja">Ninja</option>

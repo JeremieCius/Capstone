@@ -16,3 +16,26 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.battlefield {
+    background-image: url("https://wallpaperaccess.com/full/773426.jpg")
+}
+
+.bg-text {
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.4);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}

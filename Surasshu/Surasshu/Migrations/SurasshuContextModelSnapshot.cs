@@ -300,6 +300,9 @@ namespace Surasshu.Migrations
                     b.Property<int>("Hp")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImageLink")
+                        .HasColumnType("varchar(MAX)");
+
                     b.Property<bool>("IsNinja")
                         .HasColumnType("bit");
 

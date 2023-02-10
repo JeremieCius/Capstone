@@ -15,6 +15,9 @@ namespace Surasshu.Models
 
         public bool IsNinja { get; set; }
 
+        [Column(TypeName = "varchar(MAX)")]
+        public string? ImageLink { get; set; }
+
         public int Xp { get; set; }
 
         public int AttackMod { get; set; }
@@ -33,7 +36,7 @@ namespace Surasshu.Models
         public int? QuirkTwoId { get; set; }
         public int? QuirkThreeId { get; set; }
 
-        public Warrior(int warriorId, string warriorName, string userId, bool isNinja, int xp, int attackMod, int dieCount, int dieSide, int crit, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId)
+        public Warrior(int warriorId, string warriorName, string userId, bool isNinja, int xp, int attackMod, int dieCount, int dieSide, int crit, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId, string? imageLink)
         {
             WarriorId = warriorId;
             WarriorName = warriorName;
@@ -49,6 +52,7 @@ namespace Surasshu.Models
             QuirkOneId = quirkOneId;
             QuirkTwoId = quirkTwoId;
             QuirkThreeId = quirkThreeId;
+            ImageLink = imageLink;
         }
 
         public Warrior()

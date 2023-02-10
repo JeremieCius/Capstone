@@ -79,6 +79,17 @@ namespace Surasshu.Controllers
                 warrior.Hp = random.Next(20, 25);
             }
 
+            if (Request.Form["ImageBox"] == "")
+            {
+                if (warrior.IsNinja)
+                {
+                    warrior.ImageLink = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGz5BR-UzS0eqX5j5iYeQ2VZjTjqa2rC31Nw-Xjnh6CJ1l9PlmYEyp2dwTe0_lzB1xnA&usqp=CAU";
+                } else if (!warrior.IsNinja)
+                {
+                    warrior.ImageLink = "https://static.vecteezy.com/system/resources/previews/005/644/134/original/clip-art-of-samurai-with-silhouette-design-vector.jpg";
+                } 
+            }
+
             dal.AddWarrior(warrior);
 
             return View("WarriorLocker", dal.GetWarriors(loggedInUser));
@@ -94,7 +105,7 @@ namespace Surasshu.Controllers
             return View("SearchForBattle", dal.GetWarriors(userId));
         }
 
-       /* Uncomment this AFTER you design the battlefield itself
+       // Uncomment this AFTER you design the battlefield itself
         public IActionResult SendOutToSoloBattle(int? id)
         {
             /*
@@ -103,7 +114,7 @@ namespace Surasshu.Controllers
              * We're going to simply have the necessary fields for copies of the user's warriors and then send them to the cshtml itself
              * and then have the code for the battle occur in the cshtml itself...
              * Crazy right?
-             
+            */ 
             var w1 = dal.GetWarrior(id);
             var w2 = dal.GetWarrior(random.Next(dal.GetWarriorTableCount()));
             do 
@@ -115,11 +126,11 @@ namespace Surasshu.Controllers
 
             return View("Battlefield", participants);
         }
-        */
+        
 
-       public IActionResult SendOutToSoloBattle()
+       /* public IActionResult SendOutToSoloBattle()
        {
            return View("Battlefield");
-       }
+       } */
     }
 }
