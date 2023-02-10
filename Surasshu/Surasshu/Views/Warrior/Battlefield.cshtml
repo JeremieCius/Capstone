@@ -4,15 +4,27 @@
     <div class="container bg-black text-white">
         <div class="row">
             <div class="col">
-                <div>User's warrior's img</div>
-                <div>User's warrior's name</div>
-                <div>User's warrior's hp (current hp / max hp)</div>
+                @foreach (var warrior in Model)
+                {
+                    if (warrior.UserId == User.Identity.ToString())
+                    {
+                        <img src="@warrior.ImageLink"/>
+                        <div>@warrior.WarriorName</div>
+                        <div>@warrior.Hp (current hp / max hp)</div>
+                    }
+                }
             </div>
             <div class="col-6 bg-text">Text to show the progress of the battle</div>
             <div class="col">
-                <div>Opponent's warrior's img</div>
-                <div>Opponent's warrior's name</div>
-                <div>Opponent's warrior's hp (current hp / max hp)</div>
+                @foreach (var warrior in Model)
+                {
+                    if (warrior.UserId != User.Identity.ToString())
+                    {
+                        <img src="@warrior.ImageLink" />
+                        <div>@warrior.WarriorName</div>
+                        <div>@warrior.Hp (current hp / max hp)</div>
+                    }
+                }
             </div>
         </div>
     </div>
