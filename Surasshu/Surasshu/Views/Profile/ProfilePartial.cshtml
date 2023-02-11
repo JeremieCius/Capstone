@@ -46,6 +46,11 @@
         <div>Phone Number</div>
         <input id="PhoneBox" name="PhoneBox" placeholder="Phone Number" type="text" value=""/>
     }
-
+    
+    @if (!@Model.IsBotAccount)
+    {
+        <div>Make Bot Account</div>
+        <input id="BotBox" name="BotBox" placeholder="Type 'Make Me A Bot' to make this a bot account"/>
+    }
     <button type="submit" class="btn btn-success">Update</button>
 </form>

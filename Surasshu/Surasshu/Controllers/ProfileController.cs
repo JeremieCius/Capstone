@@ -41,6 +41,11 @@ namespace Surasshu.Controllers
             user.UserName = Request.Form["UNameBox"];
             user.PhoneNumber = Request.Form["PhoneBox"];
 
+            if (Request.Form["BotBox"] == "Make Me A Bot")
+            {
+                user.IsBotAccount = true;
+            }
+
             dal.UpdateUser(user);
 
             List<SurasshuUser> list = new List<SurasshuUser>();

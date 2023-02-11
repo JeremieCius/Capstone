@@ -1,31 +1,36 @@
 ﻿@model IEnumerable<Warrior>
 
 <body class="battlefield">
-    <div class="container bg-black text-white">
-        <div class="row">
-            <div class="col">
-                @foreach (var warrior in Model)
+<div class="container bg-black text-white">
+    <div class="row">
+        <div class="col">
+            @foreach (var warrior in Model)
+            {
+                if (warrior.UserId == User.Identity.ToString())
                 {
-                    if (warrior.UserId == User.Identity.ToString())
-                    {
-                        <img src="@warrior.ImageLink"/>
-                        <div>@warrior.WarriorName</div>
-                        <div>@warrior.Hp (current hp / max hp)</div>
-                    }
+                    <img src="@warrior.ImageLink" width="200" height="148"/>
+                    <div>@warrior.WarriorName</div>
+                    <div>@warrior.Hp (current hp / max hp)</div>
                 }
-            </div>
-            <div class="col-6 bg-text">Text to show the progress of the battle</div>
-            <div class="col">
-                @foreach (var warrior in Model)
+            }
+        </div>
+        <div class="col">
+            @foreach (var warrior in Model)
+            {
+                if (warrior.UserId != User.Identity.ToString())
                 {
-                    if (warrior.UserId != User.Identity.ToString())
-                    {
-                        <img src="@warrior.ImageLink" />
-                        <div>@warrior.WarriorName</div>
-                        <div>@warrior.Hp (current hp / max hp)</div>
-                    }
+                    <img src="@warrior.ImageLink" width="200" height="148"/>
+                    <div>@warrior.WarriorName</div>
+                    <div>@warrior.Hp (current hp / max hp)</div>
                 }
-            </div>
+            }
         </div>
     </div>
+    <div class="row bg-text">
+        <div class="col">
+            Text to show the progress of the battle
+        </div>
+    </div>
+</div>
+
 </body>

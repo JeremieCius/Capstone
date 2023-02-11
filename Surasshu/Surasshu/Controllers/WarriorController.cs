@@ -115,9 +115,9 @@ namespace Surasshu.Controllers
              * and then have the code for the battle occur in the cshtml itself...
              * Crazy right?
             */
-            var w2Id = random.Next(dal.GetWarriorTableCount());
+
             var w1 = dal.GetWarrior(id);
-            var w2 = dal.GetWarrior(w2Id);
+            var w2 = dal.GetWarrior(random.Next(1, dal.GetWarriorTableCount()));
             do 
             {
                 w2 = dal.GetWarrior(random.Next(dal.GetWarriorTableCount()));
