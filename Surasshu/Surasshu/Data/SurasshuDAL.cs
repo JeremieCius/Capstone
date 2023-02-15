@@ -70,9 +70,7 @@ namespace Surasshu.Data
 
         public void DeleteWarrior(int? id)
         {
-            if (id > 0)
-            {
-                foreach (var warriorTeam in db.WarriorTeams)
+            foreach (var warriorTeam in db.WarriorTeams)
                 {
                     if (warriorTeam.WarriorOneId == id)
                     {
@@ -87,8 +85,92 @@ namespace Surasshu.Data
                         warriorTeam.WarriorThreeId = null;
                     }
                 }
-                db.Warriors.Remove(db.Warriors.Find(id));
+
+            foreach (var user in db.AspNetUsers)
+            {
+                    if (user.WarriorOneId == id)
+                    {
+                        user.WarriorOneId = null;
+                    }
+                    if (user.WarriorTwoId == id)
+                    {
+                        user.WarriorTwoId = null;
+                    }
+                    if (user.WarriorThreeId == id)
+                    {
+                        user.WarriorThreeId = null;
+                    }
+                    if (user.WarriorFourId == id)
+                    {
+                        user.WarriorFourId = null;
+                    }
+                    if (user.WarriorFiveId == id)
+                    {
+                        user.WarriorFiveId = null;
+                    }
+                    if (user.WarriorSixId == id)
+                    {
+                        user.WarriorSixId = null;
+                    }
+                    if (user.WarriorSevenId == id)
+                    {
+                        user.WarriorSevenId = null;
+                    }
+                    if (user.WarriorEightId == id)
+                    {
+                        user.WarriorEightId = null;
+                    }
+                    if (user.WarriorNineId == id)
+                    {
+                        user.WarriorTenId = null;
+                    }
+                    if (user.WarriorElevenId == id)
+                    {
+                        user.WarriorElevenId = null;
+                    }
+                    if (user.WarriorTwelveId == id)
+                    {
+                        user.WarriorTwelveId = null;
+                    }
+                    if (user.WarriorThirteenId == id)
+                    {
+                        user.WarriorThirteenId = null;
+                    }
+                    if (user.WarriorFourteenId == id)
+                    {
+                        user.WarriorFourteenId = null;
+                    }
+                    if (user.WarriorFifteenId == id)
+                    {
+                        user.WarriorFifteenId = null;
+                    }
+                    if (user.WarriorSixteenId == id)
+                    {
+                        user.WarriorSixteenId = null;
+                    }
+                    if (user.WarriorSeventeenId == id)
+                    {
+                        user.WarriorSeventeenId = null;
+                    }
+                    if (user.WarriorEighteenId == id)
+                    {
+                        user.WarriorEighteenId = null;
+                    }
+                    if (user.WarriorNineteenId == id)
+                    {
+                        user.WarriorNineteenId = null;
+                    }
+                    if (user.WarriorTwentyId == id)
+                    {
+                        user.WarriorTwentyId = null;
+                    }
+                    if (user.WarriorTwentyOneId == id)
+                    {
+                        user.WarriorTwentyOneId = null;
+                    }
             }
+            db.Warriors.Remove(db.Warriors.Find(id));
+            db.SaveChanges();
         }
     }
 }

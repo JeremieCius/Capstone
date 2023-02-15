@@ -89,8 +89,21 @@ namespace Surasshu.Controllers
                     warrior.ImageLink = "https://static.vecteezy.com/system/resources/previews/005/644/134/original/clip-art-of-samurai-with-silhouette-design-vector.jpg";
                 } 
             }
+            else
+            {
+                warrior.ImageLink = Request.Form["ImageBox"];
+            }
 
             dal.AddWarrior(warrior);
+
+            return View("WarriorLocker", dal.GetWarriors(loggedInUser));
+        }
+
+        public IActionResult DeleteWarrior(int id)
+        {
+            var loggedInUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            dal.DeleteWarrior(id);
 
             return View("WarriorLocker", dal.GetWarriors(loggedInUser));
         }

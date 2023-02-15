@@ -15,6 +15,8 @@
             <td>Defense</td>
             <td>@Model.Defense</td>
         </tr>
-        
+        <form asp-controller="Warrior" asp-action="DeleteWarrior" asp-route-id="@Model.WarriorId" method="post">
+            <button class="btn-danger" type="submit">Delete</button>
+        </form>
     </table>
 </div>
