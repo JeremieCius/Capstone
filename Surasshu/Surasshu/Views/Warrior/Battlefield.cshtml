@@ -4,8 +4,8 @@
 <body class="battlefield">
 <div class="container bg-black text-white">
     @{
-        Warrior w1;
-        Warrior w2;
+        Warrior w1 = new Warrior();
+        Warrior w2 = new Warrior();
         int w1MaxHp;
         int w2MaxHp;
         <div class="row">
@@ -39,7 +39,7 @@
 
         @functions {
 
-            public void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
+            public async void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
             {
                 var random = new Random();
 
@@ -48,6 +48,8 @@
                 battle.Add(pos2);
                 int attackRoll;
                 int damageRoll;
+
+                var sleep = Task.Delay(3500);
 
                 int count = 0;
                 int count2 = 1;
@@ -64,6 +66,7 @@
                             if (attackRoll == 20 + battle[count % 2].AttackMod)
                             {
                                 //code for delaying message
+                                await sleep;
                                 damageRoll = random.Next(attacker.DieSide) * attacker.Crit + attacker.AttackMod;
                                 defender.Hp -= damageRoll;
                                 <div>@DisplayBattle(attacker, defender, damageRoll)</div>
@@ -71,17 +74,30 @@
                             else
                             {
                                 //code for delaying message
+                                await sleep;
                                 damageRoll = damageRoll = random.Next(attacker.DieSide) * attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                <div>@DisplayBattle(attacker, defender, damageRoll)</div>
+                                    <div>@DisplayBattle(attacker, defender, damageRoll)</div>
+                                }
                             }
                         }
-                    }
 
-                    count++;
-                    count2++;
-                } while (battle[0].Hp > 0 && battle[1].Hp > 0);
-            }
+                        count++;
+                        count2++;
+                    } while (battle[0].Hp > 0 && battle[1].Hp > 0);
+                    if (battle[0].Hp <= 0)
+                    {
+                        //code for delaying message
+                        await sleep;
+                        <div>@DeclareWinner(battle[1], battle[0])</div>
+                    }
+                    if (battle[1].Hp <= 0)
+                    {
+                        //code for delaying message
+                        await sleep;
+                        <div>@DeclareWinner(battle[0], battle[1])</div>
+                    }
+                }
 
             public string DisplayBattle(Warrior war1, Warrior war2, int dmg)
             {
@@ -90,13 +106,21 @@
             }
 
             //Create a function for printing the winner
-
+            public string DeclareWinner(Warrior winner, Warrior loser)
+            {
+                var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
+                return result;
+            }
         }
-
+        
         <div class="row bg-text">
-        <div class="col">
+            <div class="col">
+                @{
+                    SimulateSetAndBattle(w1,w2);
+                }
+                ;
+            </div>
         </div>
-    </div>
     }
 </div>
 
