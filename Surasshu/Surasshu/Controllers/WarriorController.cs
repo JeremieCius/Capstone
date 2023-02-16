@@ -63,8 +63,8 @@ namespace Surasshu.Controllers
             {
                 warrior.IsNinja = false;
                 warrior.AttackMod = 1;
-                warrior.DieCount = 2;
-                warrior.DieSide = 4;
+                warrior.DieCount = 1;
+                warrior.DieSide = 8;
                 warrior.Crit = 2;
                 warrior.Defense = random.Next(13, 15);
                 warrior.Hp = random.Next(27, 31);
