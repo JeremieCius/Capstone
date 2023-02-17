@@ -1,4 +1,5 @@
 ﻿@using System.Security.Cryptography.X509Certificates
+@using System.Security.Claims
 @model IEnumerable<Warrior>
 
 <body class="battlefield">
@@ -12,7 +13,7 @@
             <div class="col">
                 @foreach (var warrior in Model)
                 {
-                    if (warrior.UserId == User.Identity.ToString())
+                    if (warrior.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     {
                         w1 = warrior;
                         w1MaxHp = warrior.Hp;
@@ -20,12 +21,7 @@
                         <div>@w1.WarriorName</div>
                         <div>@w1.Hp / @w1MaxHp</div>
                     }
-                }
-            </div>
-            <div class="col">
-                @foreach (var warrior in Model)
-                {
-                    if (warrior.UserId != User.Identity.ToString())
+                    else
                     {
                         w2 = warrior;
                         w2MaxHp = warrior.Hp;
@@ -39,7 +35,7 @@
 
         @functions {
 
-            public async void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
+            public void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
             {
                 var random = new Random();
 
@@ -48,8 +44,6 @@
                 battle.Add(pos2);
                 int attackRoll;
                 int damageRoll;
-
-                var sleep = Task.Delay(3500);
 
                 int count = 0;
                 int count2 = 1;
@@ -66,18 +60,18 @@
                             if (attackRoll == 20 + battle[count % 2].AttackMod)
                             {
                                 //code for delaying message
-                                await sleep;
                                 damageRoll = random.Next(attacker.DieSide) * attacker.Crit + attacker.AttackMod;
                                 defender.Hp -= damageRoll;
+                                Thread.Sleep(3);
                                 <div>@DisplayBattle(attacker, defender, damageRoll)</div>
                             }
                             else
                             {
                                 //code for delaying message
-                                await sleep;
                                 damageRoll = damageRoll = random.Next(attacker.DieSide) * attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                    <div>@DisplayBattle(attacker, defender, damageRoll)</div>
+                                Thread.Sleep(3);
+                                <div>@DisplayBattle(attacker, defender, damageRoll)</div>
                                 }
                             }
                         }
@@ -88,13 +82,13 @@
                     if (battle[0].Hp <= 0)
                     {
                         //code for delaying message
-                        await sleep;
+                        Thread.Sleep(3);
                         <div>@DeclareWinner(battle[1], battle[0])</div>
                     }
                     if (battle[1].Hp <= 0)
                     {
                         //code for delaying message
-                        await sleep;
+                        Thread.Sleep(3);
                         <div>@DeclareWinner(battle[0], battle[1])</div>
                     }
                 }
