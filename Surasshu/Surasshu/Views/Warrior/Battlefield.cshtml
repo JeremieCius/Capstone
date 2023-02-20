@@ -1,5 +1,7 @@
 ﻿@using System.Security.Cryptography.X509Certificates
 @using System.Security.Claims
+@using System.Threading.Tasks;
+@using System.Diagnostics
 @model IEnumerable<Warrior>
 
 <body class="battlefield">
@@ -9,6 +11,8 @@
         Warrior w2 = new Warrior();
         int w1MaxHp;
         int w2MaxHp;
+
+
         <div class="row">
             <div class="col">
                 @foreach (var warrior in Model)
@@ -35,7 +39,7 @@
 
         @functions {
 
-            public void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
+            public async void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
             {
                 var random = new Random();
 
@@ -62,17 +66,17 @@
                                 //code for delaying message
                                 damageRoll = random.Next(attacker.DieSide) * attacker.Crit + attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                Thread.Sleep(3);
                                 <div>@DisplayBattle(attacker, defender, damageRoll)</div>
+                                Thread.Sleep(5);
                             }
                             else
                             {
                                 //code for delaying message
                                 damageRoll = damageRoll = random.Next(attacker.DieSide) * attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                Thread.Sleep(3);
                                 <div>@DisplayBattle(attacker, defender, damageRoll)</div>
-                                }
+                                Thread.Sleep(5);
+                            }
                             }
                         }
 
@@ -82,13 +86,11 @@
                     if (battle[0].Hp <= 0)
                     {
                         //code for delaying message
-                        Thread.Sleep(3);
                         <div>@DeclareWinner(battle[1], battle[0])</div>
                     }
                     if (battle[1].Hp <= 0)
                     {
                         //code for delaying message
-                        Thread.Sleep(3);
                         <div>@DeclareWinner(battle[0], battle[1])</div>
                     }
                 }
@@ -105,6 +107,8 @@
                 var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
                 return result;
             }
+
+
         }
         
         <div class="row bg-text">
@@ -112,7 +116,6 @@
                 @{
                     SimulateSetAndBattle(w1,w2);
                 }
-                ;
             </div>
         </div>
     }
