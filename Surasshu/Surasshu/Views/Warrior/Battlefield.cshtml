@@ -66,16 +66,14 @@
                                 //code for delaying message
                                 damageRoll = random.Next(attacker.DieSide) * attacker.Crit + attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                <div>@DisplayBattle(attacker, defender, damageRoll)</div>
-                                Thread.Sleep(5);
+                                await DisplayBattle(attacker, defender, damageRoll);
                             }
                             else
                             {
                                 //code for delaying message
                                 damageRoll = damageRoll = random.Next(attacker.DieSide) * attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                <div>@DisplayBattle(attacker, defender, damageRoll)</div>
-                                Thread.Sleep(5);
+                                await DisplayBattle(attacker, defender, damageRoll);
                             }
                             }
                         }
@@ -95,10 +93,11 @@
                     }
                 }
 
-            public string DisplayBattle(Warrior war1, Warrior war2, int dmg)
+            public async Task DisplayBattle(Warrior war1, Warrior war2, int dmg)
             {
                 var result = war1.WarriorName + " attacked " + war2.WarriorName + " and dealt " + dmg + " damage. " + war2.WarriorName + " has " + war2.Hp + " left.";
-                return result;
+                <div>@result</div>
+                await Task.Delay(3500);
             }
 
             //Create a function for printing the winner

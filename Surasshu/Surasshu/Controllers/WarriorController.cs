@@ -131,10 +131,11 @@ namespace Surasshu.Controllers
 
             var w1 = dal.GetWarrior(id);
             var w2 = dal.GetWarrior(random.Next(1, dal.GetWarriorTableCount()));
-            do 
+            if (w1.UserId == w2.UserId)
             {
-                w2 = dal.GetWarrior(random.Next(dal.GetWarriorTableCount()));
-            } while (w1.UserId == w2.UserId);
+                w2 = dal.GetWarrior(random.Next(1, dal.GetWarriorTableCount()));
+
+            }
 
             var participants = new List<Warrior> { w1, w2 };
 
