@@ -13,33 +13,33 @@
         int w2MaxHp;
 
 
-        <div class="row">
-            <div class="col">
-                @foreach (var warrior in Model)
+            <div class="row">
+                <div class="col">
+                    @foreach (var warrior in Model)
                 {
                     if (warrior.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     {
                         w1 = warrior;
                         w1MaxHp = warrior.Hp;
-                        <img src="@w1.ImageLink" width="200" height="148"/>
-                        <div>@w1.WarriorName</div>
-                        <div>@w1.Hp / @w1MaxHp</div>
+                            <img src="@w1.ImageLink" width="200" height="148"/>
+                            <div>@w1.WarriorName</div>
+                            <div>@w1.Hp / @w1MaxHp</div>
                     }
                     else
                     {
                         w2 = warrior;
                         w2MaxHp = warrior.Hp;
-                        <img src="@w2.ImageLink" width="200" height="148"/>
-                        <div>@w2.WarriorName</div>
-                        <div>@w2.Hp / @w2MaxHp</div>
+                            <img src="@w2.ImageLink" width="200" height="148"/>
+                            <div>@w2.WarriorName</div>
+                            <div>@w2.Hp / @w2MaxHp</div>
                     }
                 }
+                </div>
             </div>
-        </div>
 
-        @functions {
+            @functions {
 
-            public async void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
+            public void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
             {
                 var random = new Random();
 
@@ -63,41 +63,57 @@
                         {
                             if (attackRoll == 20 + battle[count % 2].AttackMod)
                             {
-                                //code for delaying message
                                 damageRoll = random.Next(attacker.DieSide) * attacker.Crit + attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                await DisplayBattle(attacker, defender, damageRoll);
+                                <script>
+                                    display = document.getElementById("display");
+                                    
+                                    function displayBattleJS() {
+                                        display.innerHTML = @DisplayBattle(attacker, defender, damageRoll);
+                                    }
+
+                                    const delay = setTimeout(displayBattleJS, 3500);
+                                
+                                </script>
                             }
                             else
                             {
-                                //code for delaying message
                                 damageRoll = damageRoll = random.Next(attacker.DieSide) * attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                await DisplayBattle(attacker, defender, damageRoll);
-                            }
+                                <div id="display"></div>
+
+                                <script>
+                                    display = document.getElementById("display");
+                                    
+                                    function displayBattleJS() {
+                                        display.innerHTML = @DisplayBattle(attacker, defender, damageRoll);
+                                    }
+
+                                    const delay = setTimeout(displayBattleJS, 3500);
+                                
+                                </script>
+                                
                             }
                         }
+                    }
 
                         count++;
                         count2++;
                     } while (battle[0].Hp > 0 && battle[1].Hp > 0);
                     if (battle[0].Hp <= 0)
                     {
-                        //code for delaying message
                         <div>@DeclareWinner(battle[1], battle[0])</div>
                     }
                     if (battle[1].Hp <= 0)
                     {
-                        //code for delaying message
                         <div>@DeclareWinner(battle[0], battle[1])</div>
                     }
                 }
 
-            public async Task DisplayBattle(Warrior war1, Warrior war2, int dmg)
+            public string DisplayBattle(Warrior war1, Warrior war2, int dmg)
             {
                 var result = war1.WarriorName + " attacked " + war2.WarriorName + " and dealt " + dmg + " damage. " + war2.WarriorName + " has " + war2.Hp + " left.";
-                <div>@result</div>
-                await Task.Delay(3500);
+                return result;
             }
 
             //Create a function for printing the winner
@@ -107,16 +123,16 @@
                 return result;
             }
 
+                
+            }
 
-        }
-        
-        <div class="row bg-text">
-            <div class="col">
-                @{
-                    SimulateSetAndBattle(w1,w2);
-                }
+            <div class="row bg-text">
+                <div class="col">
+                    @{
+                     SimulateSetAndBattle(w1, w2);
+                    }
+                </div>
             </div>
-        </div>
     }
 </div>
 
