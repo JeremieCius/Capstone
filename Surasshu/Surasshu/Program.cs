@@ -12,6 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<SurasshuContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddServerSideBlazor();
+
 
 builder.Services.AddDefaultIdentity<SurasshuUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<SurasshuContext>();
