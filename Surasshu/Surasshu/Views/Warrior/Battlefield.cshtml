@@ -6,41 +6,33 @@
 @model IEnumerable<Warrior>
 
 <body class="battlefield">
-<div class="container bg-black text-white">
     @{
-        Warrior w1 = new Warrior();
-        Warrior w2 = new Warrior();
-        int w1MaxHp;
-        int w2MaxHp;
+        <div class="container text-white">
+         @{   
+            Warrior w1 = new Warrior();
+            Warrior w2 = new Warrior();
 
 
-        <div class="row">
-            <div class="col">
-                @foreach (var warrior in Model)
-                {
-                    if (warrior.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+            <div class="row">
+                <div class="col">
+                    @foreach (var warrior in Model)
                     {
-                        w1 = warrior;
-                        w1MaxHp = warrior.Hp;
-                        <img src="@w1.ImageLink" width="200" height="148"/>
-                        <div>@w1.WarriorName</div>
-                        <div>@w1.Hp / @w1MaxHp</div>
+                        if (warrior.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                        {
+                            w1 = warrior;
+
+                        }
+                        else
+                        {
+                            w2 = warrior;
+                        }
                     }
-                    else
-                    {
-                        w2 = warrior;
-                        w2MaxHp = warrior.Hp;
-                       <img src="@w2.ImageLink" width="200" height="148"/>
-                       <div>@w2.WarriorName</div>
-                       <div>@w2.Hp / @w2MaxHp</div>
-                    }
-                }
                 </div>
             </div>
-        
+
             @functions {
 
-            async public void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
+                async public void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
             {
                 var random = new Random();
 
@@ -75,9 +67,9 @@
                             }
                             else
                             {
-                                damageRoll = damageRoll = random.Next(attacker.DieSide) * attacker.AttackMod;
+                                damageRoll = damageRoll = random.Next(attacker.DieSide) + 1 + attacker.AttackMod;
                                 defender.Hp -= damageRoll;
-                                    
+                                
                                 progress = DisplayBattle(attacker, defender, damageRoll);
                                 <div>@progress</div>
                             }
@@ -96,31 +88,32 @@
                         <div>@DeclareWinner(battle[0], battle[1])</div>
                     }
                 }
-
-            public string DisplayBattle(Warrior war1, Warrior war2, int dmg)
-            {
-                var result = war1.WarriorName + " attacked " + war2.WarriorName + " and dealt " + dmg + " damage. " + war2.WarriorName + " has " + war2.Hp + " left.";
-                return result;
-            }
-
-            //Create a function for printing the winner
-            public string DeclareWinner(Warrior winner, Warrior loser)
-            {
-                var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
-                return result;
-            }
-
                 
+
+                public string DisplayBattle(Warrior war1, Warrior war2, int dmg)
+                {
+                    var result = war1.WarriorName + " attacked " + war2.WarriorName + " and dealt " + dmg + " damage. " + war2.WarriorName + " has " + war2.Hp + " left.";
+                    return result;
+                }
+
+                //Create a function for printing the winner
+                public string DeclareWinner(Warrior winner, Warrior loser)
+                {
+                    var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
+                    return result;
+                }
+
+
             }
 
-        <div class="row bg-text">
-            <div class="col">
+            <div class="row bg-text">
+                <div id="displayBattle" class="col">
                 @{
-                     SimulateSetAndBattle(w1, w2);
+                    SimulateSetAndBattle(w1, w2);
                 }
+                </div>
             </div>
+            }
         </div>
-        }
-    </div>
-    
-    </body>
+    }
+</body>
