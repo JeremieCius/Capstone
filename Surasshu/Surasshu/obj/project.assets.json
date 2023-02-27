@@ -108,6 +108,12 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Core.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Components.Analyzers/7.0.3": {
+        "type": "package",
+        "build": {
+          "buildTransitive/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets": {}
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/6.0.6": {
         "type": "package",
         "compile": {
@@ -3816,6 +3822,22 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Core.xml",
         "microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.authentication.core.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Components.Analyzers/7.0.3": {
+      "sha512": "i9zke7dUBybWKayO9ljZ6DX1hcRxFnCwweB/dcxLKnjFmXXf16KagGV7RJmiCnQUz/l3Y+kQKAPqrBkV9Znn2w==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.components.analyzers/7.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.txt",
+        "analyzers/dotnet/cs/Microsoft.AspNetCore.Components.Analyzers.dll",
+        "build/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets",
+        "buildTransitive/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets",
+        "microsoft.aspnetcore.components.analyzers.7.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.components.analyzers.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/6.0.6": {
@@ -10368,6 +10390,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.AspNet.Razor >= 3.2.9",
+      "Microsoft.AspNetCore.Components.Analyzers >= 7.0.3",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.6",
       "Microsoft.AspNetCore.Identity >= 2.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.6",
@@ -10432,6 +10455,10 @@
           "Microsoft.AspNet.Razor": {
             "target": "Package",
             "version": "[3.2.9, )"
+          },
+          "Microsoft.AspNetCore.Components.Analyzers": {
+            "target": "Package",
+            "version": "[7.0.3, )"
           },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",

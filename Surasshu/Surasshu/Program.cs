@@ -25,6 +25,7 @@ builder.Services.AddRazorPages().AddRazorPagesOptions(o =>
     o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
 });
 
+builder.Services.AddServerSideBlazor();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<IDataAccessLayer, SurasshuDAL>();
@@ -66,6 +67,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-
+app.MapBlazorHub();
 
 app.Run();

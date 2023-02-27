@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CTL5CLhqsUa/sqwJrRkwkAny7dpWZnDfdLwxW5aOHVyzGEVy4iDeq6jWAJza0oaGGdChGy5FXaUFINe+0TLBow==",
+  "dgSpecHash": "5UH9Fb3oRk+8ad9iRmQS6/5SVjtcWr1due9vK/ZFbbITHRGPFGYBS0pUVYheWH9SofceizAICuLr6TyYMUEquQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\jerem\\Documents\\GitHub\\Capstone\\Surasshu\\Surasshu\\Surasshu.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\jerem\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\jerem\\.nuget\\packages\\microsoft.aspnetcore.authentication.cookies\\2.2.0\\microsoft.aspnetcore.authentication.cookies.2.2.0.nupkg.sha512",
     "C:\\Users\\jerem\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\jerem\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\7.0.3\\microsoft.aspnetcore.components.analyzers.7.0.3.nupkg.sha512",
     "C:\\Users\\jerem\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.6\\microsoft.aspnetcore.cryptography.internal.6.0.6.nupkg.sha512",
     "C:\\Users\\jerem\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.6\\microsoft.aspnetcore.cryptography.keyderivation.6.0.6.nupkg.sha512",
     "C:\\Users\\jerem\\.nuget\\packages\\microsoft.aspnetcore.dataprotection\\2.2.0\\microsoft.aspnetcore.dataprotection.2.2.0.nupkg.sha512",
