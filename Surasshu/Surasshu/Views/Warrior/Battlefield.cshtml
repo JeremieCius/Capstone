@@ -2,7 +2,10 @@
 @using System.Security.Claims
 @using System.Threading.Tasks;
 @using System.Diagnostics
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using Surasshu.Views.Warrior
+@using Surasshu.Views.Warrior.Components
+@using System.ComponentModel
 
 
 @model IEnumerable<Warrior>
@@ -34,8 +37,9 @@
 
                 <div class="row bg-text">
                     <div id="displayBattle" class="col">
-                        
-                        <component type="typeof(Battlefield)" params-warrior1="" render-mode="ServerPrerendered"/>
+
+                        @(await Html.RenderComponentAsync<Battlefield>(RenderMode.ServerPrerendered, new { Warrior1 = w1, Warrior2 = w2 } ))
+                        <script src="~/_framework/blazor.server.js"></script>
 
                     </div>
                 </div>

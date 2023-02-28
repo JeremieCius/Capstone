@@ -290,4 +290,13 @@ C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\runt
 C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\PayPal.dll
 C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\PayPalCoreSDK.dll
 C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\PayPalMerchantSDK.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\Microsoft.JSInterop.dll
+C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu\bin\Debug\net6.0\System.IO.Pipelines.dll

@@ -1,0 +1,86 @@
+﻿@using Surasshu.Models
+@using Microsoft.AspNetCore.Components.Rendering
+
+<button class="btn btn-dark" @onclick="SimulateSetAndBattle">Begin Battle</button>
+<div>@Progress</div>
+<div>@Conclusion</div>
+
+@code {
+
+    Random _random = new Random();
+
+    List<Warrior> _battle = new List<Warrior>();
+
+    [Parameter] public string? Progress { get; set; } = string.Empty;
+    [Parameter] public string? Conclusion { get; set; } = string.Empty;
+
+    [Parameter] public Warrior Warrior1 { get; set; }
+    [Parameter] public Warrior Warrior2 { get; set; }
+
+    public int Count = 0;
+    public int Count2 = 1; 
+    public int AttackRoll { get; set; }
+    public int DamageRoll { get; set; }
+
+    public async void SimulateSetAndBattle()
+        {
+        _battle.Add(Warrior1);
+        _battle.Add(Warrior2);
+        do
+        {
+                var attacker = _battle[Count % 2];
+                var defender = _battle[Count2 % 2];
+                if (attacker.Hp >= 0)
+                {
+                    AttackRoll = _random.Next(20) + 1 + _battle[Count % 2].AttackMod;
+                    if (AttackRoll >= _battle[Count2 % 2].Defense)
+                    {
+                        if (AttackRoll == 20 + _battle[Count % 2].AttackMod)
+                        {
+                            DamageRoll = _random.Next(attacker.DieSide) + 1 * attacker.Crit + attacker.AttackMod;
+                            defender.Hp -= DamageRoll;
+                            await Task.Delay(3600);
+                            Progress = "Critical Hit! " + DisplayBattle(attacker, defender, DamageRoll);
+                            StateHasChanged();
+                        }
+                        else
+                        {
+                            DamageRoll = DamageRoll = _random.Next(attacker.DieSide) + 1 + attacker.AttackMod;
+                            defender.Hp -= DamageRoll;
+                            Progress = DisplayBattle(attacker, defender, DamageRoll);
+                            await Task.Delay(3500);
+                            StateHasChanged();
+                        }
+                    }
+                }
+
+                Count++;
+                Count2++;
+            } while (_battle[0].Hp > 0 && _battle[1].Hp > 0);
+            if (_battle[0].Hp <= 0)
+            {
+                Conclusion = DeclareWinner(_battle[1], _battle[0]);
+                StateHasChanged();
+            }
+            if (_battle[1].Hp <= 0)
+            {
+                Conclusion = DeclareWinner(_battle[0], _battle[1]);
+                StateHasChanged();
+            }
+        }
+
+
+        public string DisplayBattle(Warrior war1, Warrior war2, int dmg)
+        {
+            var result = war1.WarriorName + " attacked " + war2.WarriorName + " and dealt " + dmg + " damage. " + war2.WarriorName + " has " + war2.Hp + " left.";
+            return result;
+        }
+
+        //Create a function for printing the winner
+        public string DeclareWinner(Warrior winner, Warrior loser)
+        {
+            var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
+            return result;
+        }
+}
+

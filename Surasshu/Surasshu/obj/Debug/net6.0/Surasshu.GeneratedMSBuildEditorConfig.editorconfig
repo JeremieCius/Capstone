@@ -15,8 +15,12 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\jerem\Documents\GitHub\Capstone\Surasshu\Surasshu
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/Battlefield.razor]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxCYXR0bGVmaWVsZC5yYXpvcg==
+[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/Components/Battlefield.razor]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxDb21wb25lbnRzXEJhdHRsZWZpZWxkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxDb21wb25lbnRzXF9JbXBvcnRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Areas/Identity/Pages/_ViewStart.cshtml]

@@ -142,7 +142,7 @@ namespace Surasshu.Controllers
             return View("Battlefield", participants);
         }
 
-
+        /*
         async public void SimulateSetAndBattle(Warrior pos1, Warrior pos2)
         {
             var random = new Random();
@@ -211,5 +211,6 @@ namespace Surasshu.Controllers
             var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
             return result;
         }
+        */
     }
 }
