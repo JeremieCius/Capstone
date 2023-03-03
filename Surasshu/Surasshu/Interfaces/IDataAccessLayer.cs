@@ -21,5 +21,10 @@ namespace Surasshu.Interfaces
 
         void UpdateUser(SurasshuUser user);
 
+        void UpdateWarrior(Warrior warrior);
+
+        void GiveWarriorXp(Warrior winner, Warrior loser);
+
+        void LevelUpWarrior(Warrior warrior);
     }
 }

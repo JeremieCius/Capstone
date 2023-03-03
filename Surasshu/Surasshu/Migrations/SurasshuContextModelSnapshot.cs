@@ -285,8 +285,8 @@ namespace Surasshu.Migrations
                     b.Property<int>("AttackMod")
                         .HasColumnType("int");
 
-                    b.Property<int>("Crit")
-                        .HasColumnType("int");
+                    b.Property<double>("Crit")
+                        .HasColumnType("float");
 
                     b.Property<int>("Defense")
                         .HasColumnType("int");
@@ -305,6 +305,9 @@ namespace Surasshu.Migrations
 
                     b.Property<bool>("IsNinja")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
 
                     b.Property<int?>("QuirkOneId")
                         .HasColumnType("int");
