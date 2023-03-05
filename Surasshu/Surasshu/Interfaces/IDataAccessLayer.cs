@@ -9,7 +9,7 @@ namespace Surasshu.Interfaces
 
         public IEnumerable<SurasshuUser> GetUsersInDatabase();
 
-        public int GetWarriorTableCount();
+        public int GetWarriorHighestIndexCount();
 
         Warrior GetWarrior(int? id);
 

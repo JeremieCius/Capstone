@@ -1,21 +1,21 @@
 ﻿@using Surasshu.Models
-@using Microsoft.AspNetCore.Components.Rendering
 @using Surasshu.Interfaces
+@inject IDataAccessLayer Dal
 
-<button class="btn btn-dark" @onclick="SimulateSetAndBattle">Begin Battle</button>
 <div>@Progress</div>
 <div>@Conclusion</div>
+
+@{
+    if (Conclusion != "")
+    {
+        
+    }
+}
 
 @code {
 
     Random _random = new Random();
 
-    IDataAccessLayer dal;
-
-    public Battlefield(IDataAccessLayer indal)
-    {
-        this.dal = indal;
-    }
 
     List<Warrior> _battle = new List<Warrior>();
 
@@ -29,6 +29,11 @@
     public int Count2 = 1; 
     public int AttackRoll { get; set; }
     public int DamageRoll { get; set; }
+
+    protected override void OnInitialized()
+    {
+        SimulateSetAndBattle();
+    }
 
     public async void SimulateSetAndBattle()
         {
@@ -45,18 +50,18 @@
                     {
                         if (AttackRoll == 20 + _battle[Count % 2].AttackMod)
                         {
+                            await Task.Delay(3500);
                             DamageRoll = (int)(_random.Next(attacker.DieSide) + 1 * attacker.Crit + attacker.AttackMod);
                             defender.Hp -= DamageRoll;
-                            await Task.Delay(3600);
                             Progress = "Critical Hit! " + DisplayBattle(attacker, defender, DamageRoll);
                             StateHasChanged();
                         }
                         else
                         {
+                            await Task.Delay(3300);
                             DamageRoll = DamageRoll = _random.Next(attacker.DieSide) + 1 + attacker.AttackMod;
                             defender.Hp -= DamageRoll;
                             Progress = DisplayBattle(attacker, defender, DamageRoll);
-                            await Task.Delay(3500);
                             StateHasChanged();
                         }
                     }
@@ -87,7 +92,7 @@
         //Create a function for printing the winner
         public string DeclareWinner(Warrior winner, Warrior loser)
         {
-            dal.GiveWarriorXp(winner, loser);   
+            Dal.GiveWarriorXp(winner, loser);
             var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
             return result;
         }

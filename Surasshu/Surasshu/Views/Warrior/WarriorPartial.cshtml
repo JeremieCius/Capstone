@@ -4,6 +4,10 @@
     <h4 class="card-title">@Model.WarriorName</h4>
     <table class="table">
         <tr>
+            <td>Level</td>
+            <td>@Model.Level</td>
+        </tr>
+        <tr>
             <td>HP</td>
             <td>@Model.Hp</td>
         </tr>
@@ -15,8 +19,10 @@
             <td>Defense</td>
             <td>@Model.Defense</td>
         </tr>
-        <form asp-controller="Warrior" asp-action="DeleteWarrior" asp-route-id="@Model.WarriorId" method="post">
-            <button class="btn-danger" type="submit">Delete</button>
-        </form>
+        <tr>
+            <td>XP</td>
+            <td>@Model.Xp / 100</td>
+        </tr>
+        
     </table>
 </div>

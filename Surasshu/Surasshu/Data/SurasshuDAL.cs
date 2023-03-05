@@ -64,7 +64,7 @@ namespace Surasshu.Data
                     switch (warrior.Level % 5)
                     {
                         case 1:
-                            warrior.Hp += random.Next(8) + 1;
+                            warrior.Hp += random.Next(10) + 1;
                             break;
                         case 2:
                             warrior.Hp += random.Next(6) + 1;
@@ -72,17 +72,18 @@ namespace Surasshu.Data
                             break;
                         case 3:
                             warrior.Hp += random.Next(6) + 1;
-                            warrior.DieCount += 1;
+                            warrior.AttackMod += 1;
+                            warrior.DieSide += 1;
                             break;
                         case 4:
                             warrior.Hp += random.Next(6) + 1;
                             warrior.Defense += 1;
                             break;
                         case 0:
-                            warrior.Hp += random.Next(4) + 1;
+                            warrior.Hp += random.Next(4) + 4;
                             warrior.Crit += 0.25;
+                            warrior.DieCount += 1;
                             warrior.AttackMod += 1;
-                            warrior.DieSide += 1;
                             return;
                     }
                 }
@@ -96,15 +97,14 @@ namespace Surasshu.Data
                             break;
                         case 2:
                             warrior.Hp += random.Next(10) + 1;
-                            warrior.Defense += 1;
                             break;
                         case 3:
                             warrior.Hp += random.Next(10) + 1;
-                            warrior.AttackMod += 1;
+                            warrior.Defense += 1;
                             break;
                         case 4:
                             warrior.Hp += random.Next(10) + 1;
-                            warrior.Defense += 1;
+                            warrior.AttackMod += 1;
                             break;
                         case 5:
                             warrior.Hp += random.Next(12) + 1;
@@ -118,19 +118,18 @@ namespace Surasshu.Data
                             warrior.DieSide += 1;
                             break;
                         case 0:
-                            warrior.Hp += random.Next(8) + 1;
+                            warrior.Hp += random.Next(8) + 4;
                             warrior.Crit += 0.25;
                             warrior.Defense += 1;
                             warrior.DieCount += 1;
                             return;
                     }
                 }
+
+                warrior.Xp -= 100;
             }
 
-            warrior.Xp -= 100;
-            db.Warriors.Update(warrior);
-            db.SaveChanges();
-
+            UpdateWarrior(warrior);
         }
 
         public IEnumerable<Warrior> GetWarriors(string userId)
@@ -149,9 +148,18 @@ namespace Surasshu.Data
 
         
 
-        public int GetWarriorTableCount()
+        public int GetWarriorHighestIndexCount()
         {
-            return db.Warriors.ToList().Count();
+            var highestIndex = 0;
+            foreach (var warriors in db.Warriors)
+            {
+                if (warriors.WarriorId > highestIndex)
+                {
+                    highestIndex = warriors.WarriorId;
+                }
+            }
+
+            return highestIndex;
         }
 
         public Warrior GetWarrior(int? id)
@@ -174,20 +182,20 @@ namespace Surasshu.Data
         public void DeleteWarrior(int? id)
         {
             foreach (var warriorTeam in db.WarriorTeams)
+            {
+                if (warriorTeam.WarriorOneId == id)
                 {
-                    if (warriorTeam.WarriorOneId == id)
-                    {
-                        warriorTeam.WarriorOneId = null;
-                    }
-                    if (warriorTeam.WarriorTwoId == id)
-                    {
-                        warriorTeam.WarriorTwoId = null;
-                    }
-                    if (warriorTeam.WarriorThreeId == id)
-                    {
-                        warriorTeam.WarriorThreeId = null;
-                    }
+                    warriorTeam.WarriorOneId = null;
                 }
+                if (warriorTeam.WarriorTwoId == id)
+                {
+                    warriorTeam.WarriorTwoId = null;
+                }
+                if (warriorTeam.WarriorThreeId == id)
+                {
+                    warriorTeam.WarriorThreeId = null;
+                }
+            }
 
             foreach (var user in db.AspNetUsers)
             {

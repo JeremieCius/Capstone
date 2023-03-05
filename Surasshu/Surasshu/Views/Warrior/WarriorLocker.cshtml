@@ -27,6 +27,9 @@
 
             }
             <partial name="WarriorPartial.cshtml" model="warrior" />
+            <form asp-controller="Warrior" asp-action="DeleteWarrior" asp-route-id="@warrior.WarriorId" method="post">
+                <button class="btn-danger" type="submit">Delete</button>
+            </form>
             @{/*
                 SurasshuContext db;
                 foreach (var quirks in db.Quirks)
