@@ -15,6 +15,10 @@ namespace Surasshu.Models
         [Column(TypeName = "varchar(MAX)")]
         public string QuirkDescription { get; set; }
 
+        public bool IsForNinja { get; set; }
+
+        public int LevelSlot { get; set; }
+
         public int? QuirkCost { get; set; }
 
         public Quirk()
@@ -22,11 +26,13 @@ namespace Surasshu.Models
 
         }
 
-        public Quirk(int quirkId, string quirkName, string quirkDescription, int? quirkCost)
+        public Quirk(int quirkId, string quirkName, string quirkDescription, bool isForNinja, int levelSlot, int? quirkCost)
         {
             QuirkId = quirkId;
             QuirkName = quirkName;
             QuirkDescription = quirkDescription;
+            IsForNinja = isForNinja;
+            LevelSlot = levelSlot;
             QuirkCost = quirkCost;
         }
     }

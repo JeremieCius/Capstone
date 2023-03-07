@@ -258,6 +258,12 @@ namespace Surasshu.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuirkId"), 1L, 1);
 
+                    b.Property<bool>("IsForNinja")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LevelSlot")
+                        .HasColumnType("int");
+
                     b.Property<int?>("QuirkCost")
                         .HasColumnType("int");
 

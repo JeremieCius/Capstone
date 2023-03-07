@@ -12,7 +12,7 @@ namespace Surasshu.Data
         {
         }
 
-        public DbSet<Warrior> Warriors { get; set; }
+        public DbSet<Warrior?> Warriors { get; set; }
 
         public DbSet<WarriorTeam> WarriorTeams { get; set; }
 

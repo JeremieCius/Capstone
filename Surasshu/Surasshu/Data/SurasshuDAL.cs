@@ -49,8 +49,8 @@ namespace Surasshu.Data
             dbLoser.Xp = loser.Xp;
 
 
-            LevelUpWarrior(winner);
-            LevelUpWarrior(loser);
+            LevelUpWarrior(dbWinner);
+            LevelUpWarrior(dbLoser);
         }
 
         public void LevelUpWarrior(Warrior warrior)
@@ -99,22 +99,22 @@ namespace Surasshu.Data
                             warrior.Hp += random.Next(10) + 1;
                             break;
                         case 3:
-                            warrior.Hp += random.Next(10) + 1;
+                            warrior.Hp += random.Next(8) + 1;
                             warrior.Defense += 1;
                             break;
                         case 4:
-                            warrior.Hp += random.Next(10) + 1;
+                            warrior.Hp += random.Next(8) + 1;
                             warrior.AttackMod += 1;
                             break;
                         case 5:
-                            warrior.Hp += random.Next(12) + 1;
+                            warrior.Hp += random.Next(10) + 1;
                             break;
                         case 6:
-                            warrior.Hp += random.Next(10) + 1;
+                            warrior.Hp += random.Next(8) + 1;
                             warrior.AttackMod += 1;
                             break;
                         case 7:
-                            warrior.Hp += random.Next(10) + 1;
+                            warrior.Hp += random.Next(8) + 1;
                             warrior.DieSide += 1;
                             break;
                         case 0:

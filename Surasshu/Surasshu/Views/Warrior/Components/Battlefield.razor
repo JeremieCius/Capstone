@@ -43,6 +43,8 @@
         {
                 var attacker = _battle[Count % 2];
                 var defender = _battle[Count2 % 2];
+                var rollForDamage = 0;
+                
                 if (attacker.Hp >= 0)
                 {
                     AttackRoll = _random.Next(20) + 1 + _battle[Count % 2].AttackMod;
@@ -51,7 +53,11 @@
                         if (AttackRoll == 20 + _battle[Count % 2].AttackMod)
                         {
                             await Task.Delay(3500);
-                            DamageRoll = (int)(_random.Next(attacker.DieSide) + 1 * attacker.Crit + attacker.AttackMod);
+                            for (var i = 0; i < attacker.DieCount; i++)
+                            {
+                                rollForDamage += _random.Next(attacker.DieSide);
+                            }
+                            DamageRoll = (int) (rollForDamage + 1 * attacker.Crit + attacker.AttackMod);
                             defender.Hp -= DamageRoll;
                             Progress = "Critical Hit! " + DisplayBattle(attacker, defender, DamageRoll);
                             StateHasChanged();
@@ -59,7 +65,11 @@
                         else
                         {
                             await Task.Delay(3300);
-                            DamageRoll = DamageRoll = _random.Next(attacker.DieSide) + 1 + attacker.AttackMod;
+                            for (var i = 0; i < attacker.DieCount; i++)
+                            {
+                                rollForDamage += _random.Next(attacker.DieSide);
+                            }
+                            DamageRoll = _random.Next(attacker.DieSide) + 1 + attacker.AttackMod;
                             defender.Hp -= DamageRoll;
                             Progress = DisplayBattle(attacker, defender, DamageRoll);
                             StateHasChanged();
@@ -75,7 +85,7 @@
                 Conclusion = DeclareWinner(_battle[1], _battle[0]);
                 StateHasChanged();
             }
-            if (_battle[1].Hp <= 0)
+            else if (_battle[1].Hp <= 0)
             {
                 Conclusion = DeclareWinner(_battle[0], _battle[1]);
                 StateHasChanged();

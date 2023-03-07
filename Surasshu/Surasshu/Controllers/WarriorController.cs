@@ -133,16 +133,18 @@ namespace Surasshu.Controllers
             var w1 = dal.GetWarrior(id);
             var w2 = dal.GetWarrior(random.Next(1, dal.GetWarriorHighestIndexCount()));
 
-            var levelRange = 0;
+            var levelRange = -999999;
 
-            if (w2 == null || w1.UserId == w2.UserId && levelRange is >= 3 and <= 3)
+
+            if (w2 == null || w1.UserId == w2.UserId || levelRange is >= 3 and <= 3)
             {
                 do
                 {
                     w2 = dal.GetWarrior(random.Next(1, dal.GetWarriorHighestIndexCount()));
-                    levelRange = w1.Level - w2.Level;
+                    if(w2 != null) 
+                    { levelRange = w1.Level - w2.Level; }
 
-                } while (w2 != null || w1.UserId == w2.UserId && levelRange is >= 3 and <= 3);
+                } while (w2 == null || w1.UserId == w2.UserId || levelRange is >= 3 and <= 3);
             }
 
             var participants = new List<Warrior> { w1, w2 };
