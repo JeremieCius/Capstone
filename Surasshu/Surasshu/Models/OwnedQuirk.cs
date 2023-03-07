@@ -8,19 +8,23 @@ namespace Surasshu.Models
         public int OwnedQuirkId { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public int WarriorId { get; set; }
         [Required]
         public int QuirkId { get; set; }
 
+        [Required]
+        public bool IsEquipped { get; set; }
         public OwnedQuirk()
         {
 
         }
 
-        public OwnedQuirk(string userId, int quirkId)
+        public OwnedQuirk(int ownedQuirkId, int warriorId, int quirkId, bool isEquipped)
         {
-            UserId = userId;
+            OwnedQuirkId = ownedQuirkId;
+            WarriorId = warriorId;
             QuirkId = quirkId;
+            IsEquipped = isEquipped;
         }
     }
 }

@@ -238,12 +238,14 @@ namespace Surasshu.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OwnedQuirkId"), 1L, 1);
 
+                    b.Property<bool>("IsEquipped")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuirkId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WarriorId")
+                        .HasColumnType("int");
 
                     b.HasKey("OwnedQuirkId");
 
