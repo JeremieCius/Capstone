@@ -1,6 +1,6 @@
 ﻿@model Warrior
 
-
+<body class="dojo">
 @if (Model.IsNinja)
 {
     <partial name="NinjaQuirkPartial" model="Model" />
@@ -9,3 +9,4 @@ else
 {
     <partial name="SamuraiQuirkPartial" model="Model"/>
 }
+</body>

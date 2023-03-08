@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Warrior>
 
+<body class="gate">
 <div class="row">
     @foreach (Warrior warrior in Model)
     {
@@ -27,32 +28,7 @@
             <form asp-controller="Warrior" asp-action="SendOutToSoloBattle" asp-route-id="@warrior.WarriorId" method="post">
                 <button type="submit">Send out to battle</button>
             </form>
-            @{/*
-                SurasshuContext db;
-                foreach (var quirks in db.Quirks)
-                {
-                    if (warrior.QuirkOneId == quirks.QuirkId)
-                    {
-                        <partial name="WarriorEquippedQuirkPartial.cshtml" model="quirks" />
-                    }
-                    if (warrior.Xp >= 5)
-                    {
-                        if (warrior.QuirkTwoId == quirks.QuirkId)
-                        {
-                            <partial name="WarriorEquippedQuirkPartial.cshtml" model="quirks" />
-                        }
-                        else
-                        {
-                            <h4 class="card-body">Add Quirk</h4>
-                            <form asp-controller="Warrior" asp-action="AddQuirk" >
-                                
-                            </form>
-                        }
-                    }
-
-                }
-              */  
-            }
         </div>
     }
 </div>
+</body>

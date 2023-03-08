@@ -2,10 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 @model IEnumerable<Surasshu.Areas.Identity.Data.SurasshuUser>
-
+<body class="home">
 <div class="text-center">
     <h1 class="display-4">Welcome to Surasshu</h1>
      
+    <h3 class="display-4">Which path will you take?</h3>
+    <a asp-controller="Home" asp-action="AboutNinja">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGz5BR-UzS0eqX5j5iYeQ2VZjTjqa2rC31Nw-Xjnh6CJ1l9PlmYEyp2dwTe0_lzB1xnA&usqp=CAU"
+             alt="About Ninja"
+             width="200"
+             height="148"/>
+    </a>
     
+    <a asp-controller="Home" asp-action="AboutSamurai">
+        <img src="https://static.vecteezy.com/system/resources/previews/005/644/134/original/clip-art-of-samurai-with-silhouette-design-vector.jpg"
+             alt="About Samurai"
+             width="200"
+             height="148"/>
+    </a>
 
 </div>
+</body>

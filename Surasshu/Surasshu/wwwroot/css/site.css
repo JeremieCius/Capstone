@@ -17,6 +17,11 @@ body {
   margin-bottom: 60px;
 }
 
+.home {
+    background-color: #2E3138;
+    color: azure;
+}
+
 .error-messages {
     color: red;
     font-weight: bold
@@ -28,6 +33,20 @@ body {
 
 .dojo {
     background-image: url("https://wallpaperaccess.com/full/255070.jpg")
+}
+
+.gate {
+    background-image: url("https://images4.alphacoders.com/573/thumb-1920-573779.jpg")
+}
+
+.quote {
+    padding-top: 5%;
+    color: yellow;
+    font-weight: bold;
+}
+
+div {
+    font-size: 16px;
 }
 
 .bg-text {

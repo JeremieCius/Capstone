@@ -26,6 +26,16 @@ namespace Surasshu.Controllers
             return View();
         }
 
+        public IActionResult AboutNinja()
+        {
+            return View();
+        }
+
+        public IActionResult AboutSamurai()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
