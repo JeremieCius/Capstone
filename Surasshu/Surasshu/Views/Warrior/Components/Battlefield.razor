@@ -32,6 +32,16 @@
     {
     _battle.Add(Warrior1);
     _battle.Add(Warrior2);
+
+    ActivateFromStartQuirk(_battle[0], 
+        Dal.GetQuirkByInt(_battle[0].QuirkOneId), 
+        Dal.GetQuirkByInt(_battle[0].QuirkTwoId),
+        Dal.GetQuirkByInt(_battle[0].QuirkThreeId));
+
+    ActivateFromStartQuirk(_battle[1], 
+        Dal.GetQuirkByInt(_battle[1].QuirkOneId), 
+        Dal.GetQuirkByInt(_battle[1].QuirkTwoId),
+        Dal.GetQuirkByInt(_battle[1].QuirkThreeId));
     do
     {
             var attacker = _battle[Count % 2];
@@ -41,11 +51,10 @@
             if (attacker.Hp >= 0)
             {
                 AttackRoll = _random.Next(20) + 1 + _battle[Count % 2].AttackMod;
-                if (AttackRoll >= _battle[Count2 % 2].Defense)
+                if (AttackRoll >= defender.Defense)
                 {
-                    if (AttackRoll == 20 + _battle[Count % 2].AttackMod)
+                    if (AttackRoll == 20 + attacker.AttackMod)
                     {
-                        await Task.Delay(3500);
                         for (var i = 0; i < attacker.DieCount; i++)
                         {
                             rollForDamage += _random.Next(attacker.DieSide);
@@ -53,11 +62,16 @@
                         DamageRoll = (int) (rollForDamage + 1 * attacker.Crit + attacker.AttackMod);
                         defender.Hp -= DamageRoll;
                         Progress = "Critical Hit! " + DisplayBattle(attacker, defender, DamageRoll);
+                        ActivateReactionaryQuirk(attacker, 
+                            Dal.GetQuirkByInt(attacker.QuirkOneId),
+                            Dal.GetQuirkByInt(attacker.QuirkTwoId),
+                            Dal.GetQuirkByInt(attacker.QuirkThreeId),
+                            defender, DamageRoll);
                         StateHasChanged();
+                        await Task.Delay(7500);
                     }
                     else
                     {
-                        await Task.Delay(3300);
                         for (var i = 0; i < attacker.DieCount; i++)
                         {
                             rollForDamage += _random.Next(attacker.DieSide);
@@ -65,7 +79,13 @@
                         DamageRoll = _random.Next(attacker.DieSide) + 1 + attacker.AttackMod;
                         defender.Hp -= DamageRoll;
                         Progress = DisplayBattle(attacker, defender, DamageRoll);
+                        ActivateReactionaryQuirk(attacker, 
+                            Dal.GetQuirkByInt(attacker.QuirkOneId),
+                            Dal.GetQuirkByInt(attacker.QuirkTwoId),
+                            Dal.GetQuirkByInt(attacker.QuirkThreeId),
+                            defender, DamageRoll);
                         StateHasChanged();
+                        await Task.Delay(7300);
                     }
                 }
             }
@@ -100,15 +120,13 @@
         return result;
     }
 
-    public void ActivateFromStartQuirk(Warrior wielder, Quirk q1, Quirk q2, Quirk? q3)
+    public void ActivateFromStartQuirk(Warrior wielder, Quirk q1, Quirk q2, Quirk q3)
     {
         var quirks = new List<Quirk>();
         quirks.Add(q1);
         quirks.Add(q2);
-        if (q3 != null)
-        {
-            quirks.Add(q3);
-        }
+        quirks.Add(q3);
+        
         foreach (var quirk in quirks)
         {
             switch (quirk.QuirkName)
@@ -117,7 +135,7 @@
                     ActivateAssassin(wielder);
                     break;
                 case "Master Assassin":
-                    ActivateMasterAssassin(wielder, quirks);
+                    ActivateMasterAssassin(wielder);
                     break;
                 case "Toughness" :
                     ActivateToughness(wielder);
@@ -127,7 +145,23 @@
         
     }
 
-    public void ActivateReactionaryQuirk(Warrior wielder, Quirk q1, Quirk q2, Quirk q3, Warrior target)
+    public void ActivateAssassin(Warrior wielder)
+    {
+        wielder.Crit += 0.5;
+    }
+
+    public void ActivateMasterAssassin(Warrior wielder)
+    {
+        wielder.Crit += 1;
+    }
+
+    public void ActivateToughness(Warrior wielder)
+    {
+        wielder.Defense += 1;
+        wielder.AttackMod += 1;
+    }
+
+    public void ActivateReactionaryQuirk(Warrior wielder, Quirk q1, Quirk q2, Quirk q3, Warrior target, int damage)
     {
         var quirks = new List<Quirk>();
         quirks.Add(q1);
@@ -139,23 +173,247 @@
             switch (quirk.QuirkName)
             {
                 case "Nimble":
-                    ActivateNimble(wielder);
+                    ActivateNimble(wielder, damage);
                     break;
                 case "Frenzy":
-                    ActivateFrenzy(wielder);
+                    ActivateFrenzy(wielder, target);
                     break;
                 case "Finesse":
-                    ActivateFinesse(wielder);
+                    ActivateFinesse(wielder, damage);
                     break;
                 case "Crit-Quencher":
-                    ActivateCritQuencher(wielder);
+                    ActivateCritQuencher(wielder, damage);
                     break;
-
+                case "Uncanny Dodge":
+                    ActivateUncannyDodge(wielder, damage);
+                    break;
+                case "Fury":
+                    ActivateFury(wielder, target);
+                    break;
+                case "Parry":
+                    ActivateParry(wielder, damage);
+                    break;
+                case "Punish":
+                    ActivatePunish(wielder, target);
+                    break;
+                case "Deflect":
+                    ActivateDeflect(wielder, target, damage);
+                    break;
+                case "Execution":
+                    ActivateExecution(wielder, target);
+                    break;
+                case "Unkillable":
+                    ActivateUnkillable(wielder);
+                    return;
             }
         }
         
     }
 
-        
+    public void ActivateNimble(Warrior wielder, int damage)
+    {
+        var nimble = _random.Next(20) + 1;
+        if (nimble >= 16)
+        {
+            wielder.Hp += damage / 2;
+            Progress += wielder.WarriorName + " avoids the attack and takes only half of the damage dealt!";
+            StateHasChanged();
+        }
+    }
+
+    public async void ActivateFrenzy(Warrior wielder, Warrior target)
+    {
+        var frenzy = _random.Next(wielder.DieSide) + 3;
+        if (AttackRoll >= target.Defense)
+        {
+            if (AttackRoll == 20 + wielder.AttackMod)
+            {
+                var damage = (int)(frenzy * wielder.Crit + wielder.AttackMod);
+                target.Hp -= damage;
+
+                Progress += wielder.WarriorName + " enters into a frenzy and deals an extra " + damage + " damage!" +
+                            target.WarriorName + " only has " + target.Hp + " left.";
+                StateHasChanged();                
+                await Task.Delay(2000);
+
+            }
+            else
+            {
+                var damage = frenzy + wielder.AttackMod;
+                target.Hp -= damage;
+
+                Progress += wielder.WarriorName + " enters into a frenzy and deals an extra " + damage + " damage!" +
+                            target.WarriorName + " only has " + target.Hp + " left.";
+                StateHasChanged();
+                await Task.Delay(2000);
+
+            }
+        }
+    }
+
+    public void ActivateFinesse(Warrior wielder, int damage)
+    {
+        var finesse = _random.Next(20) + 1;
+
+        if (finesse == 20)
+        {
+            wielder.Hp += damage;
+            Progress += wielder.WarriorName + " flats out dodge the attack and takes none of the damage dealt!"; 
+            StateHasChanged();
+        } else if (finesse is >= 16 and <= 19)
+        {
+            wielder.Hp += damage / 2;
+            Progress += wielder.WarriorName + " avoids the attack and takes only half of the damage dealt!";
+            StateHasChanged();
+        }
+    }
+
+    public void ActivateCritQuencher(Warrior wielder, int damage)
+    {
+        if (AttackRoll == 20 + wielder.AttackMod)
+        {
+            wielder.Hp += (int)(damage / 2);
+        }
+    }
+
+    public void ActivateUncannyDodge(Warrior wielder, int damage)
+    {
+        var dodge = _random.Next(20) + 1;
+
+        if (dodge >= 19)
+        {
+            wielder.Hp += damage;
+            Progress += wielder.WarriorName + " flats out dodge the attack and takes none of the damage dealt!"; 
+            StateHasChanged();
+        } else if (dodge is >= 11 and <= 18)
+        {
+            wielder.Hp += damage / 2;
+            Progress += wielder.WarriorName + " avoids the attack and takes only half of the damage dealt!";
+            StateHasChanged();
+        }
+    }
+
+    public async void ActivateFury(Warrior wielder, Warrior target)
+    {
+        var fury = _random.Next(wielder.DieSide) + _random.Next(wielder.DieSide) + 3;
+        if (AttackRoll >= target.Defense)
+        {
+            if (AttackRoll == 20 + wielder.AttackMod)
+            {
+                var damage = (int)(fury * wielder.Crit + wielder.AttackMod);
+                target.Hp -= damage;
+
+                Progress += wielder.WarriorName + " enters into a FURY and deals an extra " + damage + " damage!" +
+                            target.WarriorName + " only has " + target.Hp + " left.";
+                StateHasChanged();
+                await Task.Delay(2500);
+
+            }
+            else
+            {
+                var damage = fury + wielder.AttackMod;
+                target.Hp -= damage;
+
+                Progress += wielder.WarriorName + " enters into a FURY and deals an extra " + damage + " damage!" +
+                target.WarriorName + " only has " + target.Hp + " left.";
+                StateHasChanged();
+                await Task.Delay(2500);
+
+            }
+        }
+    }
+
+    public void ActivateParry(Warrior wielder, int damage)
+    {
+        var parry = _random.Next(20) + 1;
+
+        if (parry >= 6)
+        {
+            var half = (int)(damage / 2);
+            wielder.Hp += half;
+
+            Progress += wielder.WarriorName + " deflects the attack and only takes " + half + " damage.";
+            StateHasChanged();
+        }
+    }
+
+    public async void ActivatePunish(Warrior wielder, Warrior target)
+    {
+        var punish = _random.Next(20) + 1;
+
+        if (punish >= 18)
+        {
+            var damage = (int)(wielder.AttackMod * wielder.Crit);
+            target.Hp -= damage;
+
+            Progress += wielder.WarriorName + " finds the attack punishable " + " and deals " + damage + " damage!" +
+                        target.WarriorName + " only has " + target.Hp + " left.";
+            StateHasChanged();
+            await Task.Delay(2500);
+
+        }
+    }
+
+    public async void ActivateDeflect(Warrior wielder, Warrior target, int damage)
+    {
+        var parry = _random.Next(20) + 1;
+
+        if (parry >= 6)
+        {
+            var deflect = (int)(damage / 4);
+            var half = (int)(damage / 2);
+            target.Hp -= deflect;
+
+            Progress += wielder.WarriorName + " deflects the attack and only takes " + half + " damage. "
+                + target.WarriorName + " takes " + deflect + "damage! " + target.WarriorName + " only has "
+            + target.Hp + " left.";
+            StateHasChanged();
+            await Task.Delay(2500);
+
+        }
+    }
+
+    public async void ActivateExecution(Warrior wielder, Warrior target)
+    {
+        var punish = _random.Next(20) + 1;
+        var execution = _random.Next(20) + 1;
+
+        if (punish >= 18 && execution >= 17)
+        {
+            var damage = (int)(wielder.AttackMod * wielder.Crit);
+            target.Hp -= damage;
+
+            Progress += wielder.WarriorName + " finds the attack punishable by EXECUTION " + " and deals " + damage + " damage!" + 
+                        target.WarriorName + " only has " + target.Hp + " left.";
+            StateHasChanged();
+            await Task.Delay(2500);
+
+        } else if (punish >= 18)
+        {
+            var damage = (int)(wielder.AttackMod * wielder.Crit);
+            target.Hp -= damage;
+
+            Progress += wielder.WarriorName + " finds the attack punishable " + " and deals " + damage + " damage!" +
+                        target.WarriorName + " only has " + target.Hp + " left.";
+            StateHasChanged();
+            await Task.Delay(2500);
+
+        }
+    }
+
+    public async void ActivateUnkillable(Warrior wielder)
+    {
+        if (wielder.Hp > 10)
+        {
+            var recovery = _random.Next(30,50) + 1;
+            wielder.Hp += recovery;
+            Progress += wielder.WarriorName + " activates 'Unkillable' and has recovered " + recovery  + " HP!";
+            StateHasChanged();
+            await Task.Delay(2500);
+
+        }
+    }
+
+
 }
 
