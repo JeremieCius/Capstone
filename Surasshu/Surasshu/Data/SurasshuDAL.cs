@@ -84,6 +84,7 @@ namespace Surasshu.Data
                             warrior.Crit += 0.25;
                             warrior.DieCount += 1;
                             warrior.AttackMod += 1;
+
                             return;
                     }
                 }
@@ -100,7 +101,7 @@ namespace Surasshu.Data
                             break;
                         case 3:
                             warrior.Hp += random.Next(8) + 1;
-                            warrior.Defense += 1;
+                            warrior.Defense += 2;
                             break;
                         case 4:
                             warrior.Hp += random.Next(8) + 1;
@@ -120,8 +121,9 @@ namespace Surasshu.Data
                         case 0:
                             warrior.Hp += random.Next(8) + 4;
                             warrior.Crit += 0.25;
-                            warrior.Defense += 1;
+                            warrior.Defense += 3;
                             warrior.DieCount += 1;
+                            warrior.AttackMod += 1;
                             return;
                     }
                 }
@@ -130,6 +132,65 @@ namespace Surasshu.Data
             }
 
             UpdateWarrior(warrior);
+        }
+
+        public IEnumerable<OwnedQuirk> GetOwnedQuirks(int warriorId)
+        {
+            var ownedQuirks = new List<OwnedQuirk>();
+            foreach (var warriorQuirk in db.OwnedQuirks)
+            {
+                if (warriorQuirk.WarriorId == warriorId)
+                {
+                    ownedQuirks.Add(warriorQuirk);
+                }
+            }
+
+            return ownedQuirks;
+        }
+
+        public void EquipNinjaWithQuirk(int warriorId, Quirk q1, Quirk q2, Quirk q3) 
+        {
+            var warrior = GetWarrior(warriorId);
+
+            warrior.QuirkOneId = q1.QuirkId;
+            warrior.QuirkTwoId = q2.QuirkId;
+            warrior.QuirkThreeId = q3.QuirkId;
+
+            UpdateWarrior(warrior);
+        }
+
+        public void EquipSamuraiWithQuirk(int warriorId, Quirk q1, Quirk q2)
+        {
+            var warrior = GetWarrior(warriorId);
+
+            warrior.QuirkOneId = q1.QuirkId;
+            warrior.QuirkTwoId = q2.QuirkId;
+
+            UpdateWarrior(warrior);
+        }
+
+        public IEnumerable<Quirk> GetQuirks()
+        {
+            return db.Quirks;
+        }
+
+        public Quirk GetQuirkByName(string quirkName)
+        {
+            var foundQuirk = new Quirk();
+            foreach (var quirk in db.Quirks)
+            {
+                if (quirk.QuirkName == quirkName)
+                {
+                    foundQuirk = quirk;
+                }
+            }
+
+            return foundQuirk;
+        }
+
+        public Quirk GetQuirkByInt(int? quirkId)
+        {
+            return db.Quirks.FirstOrDefault(quirk => quirk.QuirkId == quirkId);
         }
 
         public IEnumerable<Warrior> GetWarriors(string userId)

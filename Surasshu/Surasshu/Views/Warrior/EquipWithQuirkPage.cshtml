@@ -1,0 +1,11 @@
+﻿@model Warrior
+
+
+@if (Model.IsNinja)
+{
+    <partial name="NinjaQuirkPartial" model="Model" />
+}
+else
+{
+    <partial name="SamuraiQuirkPartial" model="Model"/>
+}

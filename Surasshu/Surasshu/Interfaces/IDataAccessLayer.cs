@@ -26,5 +26,19 @@ namespace Surasshu.Interfaces
         void GiveWarriorXp(Warrior winner, Warrior loser);
 
         void LevelUpWarrior(Warrior warrior);
+
+        IEnumerable<OwnedQuirk> GetOwnedQuirks(int warriorId);
+
+        void EquipNinjaWithQuirk(int warriorId, Quirk q1, Quirk q2, Quirk q3);
+
+        void EquipSamuraiWithQuirk(int warriorId, Quirk q1, Quirk q2);
+
+
+        Quirk GetQuirkByName(string quirkName);
+
+        Quirk GetQuirkByInt(int? quirkId);
+
+        IEnumerable<Quirk> GetQuirks();
+
     }
 }

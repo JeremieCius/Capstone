@@ -1,0 +1,140 @@
+﻿@using Surasshu.Interfaces
+@inject IDataAccessLayer Dal
+@model Warrior
+
+<partial name="WarriorPartial.cshtml" model="@Model" />
+
+<div class="card-body">
+<form asp-controller="Warrior" asp-action="EquipNinjaWithQuirks" asp-route-id="@Model.WarriorId" method="post">
+    <table class="table">
+    <tr>
+        <td>Quirk One</td>
+        <td>
+            @if (Model.Level >= 3)
+            {
+                <select name="QuirkOne" id="QuirkOne">
+                    <option name="None" id="None">None</option>
+                    @if (Model.Level >= 3)
+                    {
+                        <option name="Assassin" id="Assassin">Assassin</option>
+                    }
+                    @if (Model.Level >= 4)
+                    {
+                        <option name="Nimble" id="Nimble">Nimble</option>
+                    }
+                    @if (Model.Level >= 5)
+                    {
+                        <option name="Frenzy" id="Frenzy">Frenzy</option>
+                    }
+                </select>
+            }
+            else
+            {
+                <img src="https://uxwing.com/wp-content/themes/uxwing/download/editing-user-action/lock-icon.png"
+                     width="25"
+                     height="30"/>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Quirk Two</td>
+        <td>
+            @if (Model.Level >= 4)
+            {
+                <select name="QuirkTwo" id="QuirkTwo">
+                    <option name="None" id="None">None</option>
+                    @if (Model.Level >= 3)
+                    {
+                        <option name="Assassin" id="Assassin">Assassin</option>
+                    }
+                    @if (Model.Level >= 4)
+                    {
+                        <option name="Nimble" id="Nimble">Nimble</option>
+                    }
+                    @if (Model.Level >= 5)
+                    {
+                        <option name="Frenzy" id="Frenzy">Frenzy</option>
+                    }
+                    @if (Model.Level >= 8)
+                    {
+                        <option name="Finesse" id="Finesse">Finesse</option>
+                    }
+                    @if (Model.Level >= 10)
+                    {
+                        <option name="Master Assassin" id="Master Assassin">Master Assassin</option>
+                    }
+                    @if (Model.Level >= 15)
+                    {
+                        <option name="Crit-Quencher" id="Crit-Quencher">Crit-Quencher</option>
+                    }
+                    @if (Model.Level >= 20)
+                    {
+                        <option name="Fury" id="Fury">Fury</option>
+                    }
+                </select>
+            }
+            else
+            {
+                <img src="https://uxwing.com/wp-content/themes/uxwing/download/editing-user-action/lock-icon.png"
+                     width="25"
+                     height="30"/>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Quirk Three</td>
+        <td>
+            @if (Model.Level >= 5)
+            {
+                <select name="QuirkThree" id="QuirkThree">
+                    <option name="None" id="None">None</option>
+                    @if (Model.Level >= 3)
+                    {
+                        <option name="Assassin" id="Assassin">Assassin</option>
+                    }
+                    @if (Model.Level >= 4)
+                    {
+                        <option name="Nimble" id="Nimble">Nimble</option>
+                    }
+                    @if (Model.Level >= 5)
+                    {
+                        <option name="Frenzy" id="Frenzy">Frenzy</option>
+                    }
+                    @if (Model.Level >= 8)
+                    {
+                        <option name="Finesse" id="Finesse">Finesse</option>
+                    }
+                    @if (Model.Level >= 10)
+                    {
+                        <option name="Master Assassin" id="Master Assassin">Master Assassin</option>
+                    }
+                    @if (Model.Level >= 15)
+                    {
+                        <option name="Crit-Quencher" id="Crit-Quencher">Crit-Quencher</option>
+                    }
+                    @if (Model.Level >= 18)
+                    {
+                        <option name="Uncanny Dodge" id="Uncanny Dodge">Uncanny Dodge</option>
+                    }
+                    @if (Model.Level >= 20)
+                    {
+                        <option name="Fury" id="Fury">Fury</option>
+                    }
+                </select>
+            }
+            else
+            {
+                <img src="https://uxwing.com/wp-content/themes/uxwing/download/editing-user-action/lock-icon.png"
+                     width="25"
+                     height="30"/>
+            }
+        </td>
+    </tr>
+    </table>
+    
+    <input class="btn-success text-center" id="SetQuirkBtn" name="SetQuirkBtn" type="submit" value="Equip Quirk(s)"/>
+
+</form>
+
+    <div asp-validation-summary="All" name="ninja-error" class="error-messages"></div>
+</div>

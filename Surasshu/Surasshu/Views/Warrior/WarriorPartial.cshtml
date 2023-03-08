@@ -1,4 +1,6 @@
-﻿@model Warrior
+﻿@inject IDataAccessLayer Dal
+@using Surasshu.Interfaces
+@model Warrior
 
 <div class="card-body">
     <h4 class="card-title">@Model.WarriorName</h4>
@@ -28,5 +30,25 @@
             <td>@Model.Xp / 100</td>
         </tr>
         
+        <tr>
+            <td>Quirk One</td>
+            <td>@Dal.GetQuirkByInt(Model.QuirkOneId).QuirkName</td>
+        </tr>
+    
+        <tr>
+            <td>Quirk Two</td>
+            <td>@Dal.GetQuirkByInt(Model.QuirkTwoId).QuirkName</td>
+        </tr>
+        @if (Model.IsNinja)
+        {
+            <tr>
+                <td>Quirk Three</td>
+                <td>@Dal.GetQuirkByInt(Model.QuirkThreeId).QuirkName</td>
+            </tr>
+        }
+        else
+        {
+
+        }  
     </table>
 </div>

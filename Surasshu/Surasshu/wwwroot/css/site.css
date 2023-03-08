@@ -17,6 +17,11 @@ body {
   margin-bottom: 60px;
 }
 
+.error-messages {
+    color: red;
+    font-weight: bold
+}
+
 .battlefield {
     background-image: url("https://wallpaperaccess.com/full/773426.jpg")
 }

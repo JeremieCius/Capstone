@@ -1,5 +1,8 @@
 ﻿@using Surasshu.Models
 @using Surasshu.Data
+@using Microsoft.AspNetCore.Identity
+@using Surasshu.Areas.Identity.Data
+
 @model IEnumerable<Warrior>
 
 
@@ -27,48 +30,31 @@
 
             }
             <partial name="WarriorPartial.cshtml" model="warrior" />
+            @if(warrior.Level >= 3) 
+            {
+            <form asp-controller="Warrior" asp-action="EquipWithQuirkPage" asp-route-id="@warrior.WarriorId" method="post">
+                <button class="btn-success" type="submit">Set Quirk(s)</button>
+            </form>
+            }
+            <br/>
             <form asp-controller="Warrior" asp-action="DeleteWarrior" asp-route-id="@warrior.WarriorId" method="post">
+                <input type="text" id="txtDelete" name="txtDelete" placeholder="Type 'DELETE ME' to confirm deletion"/>
                 <button class="btn-danger" type="submit">Delete</button>
             </form>
-            @{/*
-                SurasshuContext db;
-                foreach (var quirks in db.Quirks)
-                {
-                    if (warrior.QuirkOneId == quirks.QuirkId)
-                    {
-                        <partial name="WarriorEquippedQuirkPartial.cshtml" model="quirks" />
-                    }
-                    if (warrior.Xp >= 5)
-                    {
-                        if (warrior.QuirkTwoId == quirks.QuirkId)
-                        {
-                            <partial name="WarriorEquippedQuirkPartial.cshtml" model="quirks" />
-                        }
-                        else
-                        {
-                            <h4 class="card-body">Add Quirk</h4>
-                            <form asp-controller="Warrior" asp-action="AddQuirk" >
-                                
-                            </form>
-                        }
-                    }
-
-                }
-              */  
-            }
         </div>
     }
-    <form asp-controller="Warrior" asp-action="CreateWarrior" method="post">
-        <div>Name</div>
-        <input name="NameBox" id="NameBox" placeholder="Enter Name" type="text" value=""/>
-        <input name="ImageBox" id="ImageBox" placeholder="Enter Image Link" type="text" value=""/>
 
-        <select name="SelectWarriorType" id="SelectWarriorType">
-            <option name="Ninja" id="Ninja">Ninja</option>
-            <option name="Samurai" name="Samurai">Samurai</option>
-            <option name="Any" id="Any">Any</option>
-        </select>
+        <form asp-controller="Warrior" asp-action="CreateWarrior" method="post">
+            <div>Name</div>
+            <input name="NameBox" id="NameBox" placeholder="Enter Name" type="text" value=""/>
+            <input name="ImageBox" id="ImageBox" placeholder="Enter Image Link" type="text" value=""/>
 
-        <button type="submit" class="btn btn-success">Generate Warrior</button>
-    </form>
+            <select name="SelectWarriorType" id="SelectWarriorType">
+                <option name="Ninja" id="Ninja">Ninja</option>
+                <option name="Samurai" id="Samurai">Samurai</option>
+                <option name="Any" id="Any">Any</option>
+            </select>
+
+            <button type="submit" class="btn btn-success">Generate Warrior</button>
+        </form>
 </div>

@@ -63,12 +63,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxCYXR0bGVmaWVsZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/SearchForBattle.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxTZWFyY2hGb3JCYXR0bGUuY3NodG1s
+[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/EquipWithQuirkPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxFcXVpcFdpdGhRdWlya1BhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/WarriorEquippedQuirkPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxXYXJyaW9yRXF1aXBwZWRRdWlya1BhcnRpYWwuY3NodG1s
+[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/NinjaQuirkPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxOaW5qYVF1aXJrUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/SamuraiQuirkPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxTYW11cmFpUXVpcmtQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/SearchForBattle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FycmlvclxTZWFyY2hGb3JCYXR0bGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jerem/Documents/GitHub/Capstone/Surasshu/Surasshu/Views/Warrior/WarriorLocker.cshtml]

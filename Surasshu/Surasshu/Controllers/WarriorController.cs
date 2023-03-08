@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Surasshu.Areas.Identity.Data;
 using Surasshu.Data;
 using Surasshu.Interfaces;
@@ -46,9 +47,9 @@ namespace Surasshu.Controllers
             warrior.WarriorName = Request.Form["NameBox"];
             warrior.Level = 1;
             warrior.Xp = 0;
-            warrior.QuirkOneId = null;
-            warrior.QuirkTwoId = null;
-            warrior.QuirkThreeId = null;
+            warrior.QuirkOneId = 16;
+            warrior.QuirkTwoId = 16;
+            warrior.QuirkThreeId = 16;
 
             if (Request.Form["SelectWarriorType"] == "Ninja")
             {
@@ -103,8 +104,10 @@ namespace Surasshu.Controllers
         public IActionResult DeleteWarrior(int id)
         {
             var loggedInUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            dal.DeleteWarrior(id);
+            if (Request.Form["txtDelete"] == "DELETE ME")
+            {
+                dal.DeleteWarrior(id);
+            }
 
             return View("WarriorLocker", dal.GetWarriors(loggedInUser));
         }
@@ -153,9 +156,125 @@ namespace Surasshu.Controllers
         }
 
         [HttpPost]
-        public void GiveWarriorXp(Warrior winner, Warrior loser)
+        public IActionResult EquipWithQuirkPage(int id)
         {
-            dal.GiveWarriorXp(winner, loser);
+            return View("EquipWithQuirkPage", dal.GetWarrior(id));
+        }
+
+        [HttpPost]
+        public IActionResult EquipNinjaWithQuirks(int id)
+        {
+            var q1Name = Request.Form["QuirkOne"];
+            var q2Name = Request.Form["QuirkTwo"];
+            var q3Name = Request.Form["QuirkThree"];
+
+            if ((q1Name == q2Name || q2Name == q3Name || q3Name == q1Name) && 
+                ((q1Name != "None" && q2Name != "None") || (q2Name != "None" && q3Name != "None") || 
+                 (q1Name != "None" && q3Name != "None") || (q1Name != "None" && q2Name != "None" && q3Name != "None")))
+            {
+                ModelState.AddModelError("ninja-error",
+                    "NO DUPLICATES");
+                return EquipWithQuirkPage(id);
+            }
+
+            if ((q2Name == "Master Assassin" && q1Name != "Assassin") && 
+                (q3Name == "Master Assassin" && q2Name != "Assassin") &&
+                (q3Name == "Master Assassin" && q1Name != "Assassin"))
+            {
+                ModelState.AddModelError("ninja-error", 
+                    "Ninja must have the quirk 'Assassin' equipped in the 1st or 2nd slot before equipping 'Master Assassin' in 2nd or 3rd slot");
+                return EquipWithQuirkPage(id);
+            }
+
+            if ((q2Name == "Finesse" && q1Name != "Nimble") &&
+                (q3Name == "Finesse" && q2Name != "Nimble") &&
+                (q3Name == "Finesse" && q1Name != "Nimble"))
+            {
+                ModelState.AddModelError("ninja-error",
+                    "Ninja must have the quirk 'Nimble' equipped in the 1st or 2nd slot before equipping 'Finesse' in 2nd or 3rd slot");
+                return EquipWithQuirkPage(id);
+            }
+
+            if ((q2Name == "Crit-Quencher" && q1Name != "Assassin") &&
+                (q3Name == "Crit-Quencher" && q2Name != "Assassin") &&
+                (q3Name == "Crit-Quencher" && q1Name != "Assassin"))
+            {
+                ModelState.AddModelError("ninja-error",
+                    "Ninja must have the quirk 'Assassin' equipped in the 1st or 2nd slot before equipping 'Crit-Quencher' in 2nd or 3rd slot");
+                return EquipWithQuirkPage(id);
+            }
+
+            if (q3Name == "Uncanny Dodge" && q2Name != "Finesse")
+            {
+                ModelState.AddModelError("ninja-error",
+                    "Ninja must have the quirk 'Finesse' equipped in the 2nd slot before equipping 'Uncanny Dodge' in the 3rd slot");
+                return EquipWithQuirkPage(id);
+            }
+
+            if ((q2Name == "Fury" && q1Name != "Frenzy") ||
+               (q3Name == "Fury" && q2Name != "Frenzy"))
+            {
+                ModelState.AddModelError("ninja-error",
+                    "Ninja must have the quirk 'Frenzy' equipped in the 1st or 2nd slot before equipping 'Fury' in 2nd or 3rd slot");
+                return EquipWithQuirkPage(id);
+            }
+
+            var q1 = dal.GetQuirkByName(q1Name);
+            var q2 = dal.GetQuirkByName(q2Name);
+            var q3 = dal.GetQuirkByName(q3Name);
+
+            dal.EquipNinjaWithQuirk(id, q1, q2, q3);
+
+            return WarriorLocker();
+        }
+
+        [HttpPost]
+        public IActionResult EquipSamuraiWithQuirks(int id)
+        {
+            var q1Name = Request.Form["QuirkOne"];
+            var q2Name = Request.Form["QuirkTwo"];
+
+            if (q1Name == q2Name)
+            {
+                if (q1Name == "None" && q2Name == "None")
+                {
+                    
+                }
+                else
+                {
+                    ModelState.AddModelError("samurai-error",
+                        "NO DUPLICATES");
+                    return EquipWithQuirkPage(id);
+                }
+            }
+
+            if (q2Name == "Deflect" && q1Name != "Parry")
+            {
+                ModelState.AddModelError("samurai-error",
+                    "Samurai must have 'Parry' equipped in the 1st slot before equipping 'Deflect'");
+                return EquipWithQuirkPage(id);
+            }
+
+            if (q2Name == "Execution" && q1Name != "Punish")
+            {
+                ModelState.AddModelError("samurai-error",
+                    "Samurai must have 'Punish' equipped in the 1st slot before equipping 'Execution'");
+                return EquipWithQuirkPage(id);
+            }
+
+            if (q2Name == "Unkillable" && q1Name != "Toughness")
+            {
+                ModelState.AddModelError("samurai-error",
+                    "Samurai must have 'Toughness' equipped in the 1st slot before equipping 'Unkillable'");
+                return EquipWithQuirkPage(id);
+            }
+
+            var q1 = dal.GetQuirkByName(q1Name);
+            var q2 = dal.GetQuirkByName(q2Name);
+
+            dal.EquipSamuraiWithQuirk(id, q1, q2);
+
+            return WarriorLocker();
         }
     }
 }

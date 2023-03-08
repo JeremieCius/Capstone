@@ -5,13 +5,6 @@
 <div>@Progress</div>
 <div>@Conclusion</div>
 
-@{
-    if (Conclusion != "")
-    {
-        
-    }
-}
-
 @code {
 
     Random _random = new Random();
@@ -36,75 +29,133 @@
     }
 
     public async void SimulateSetAndBattle()
-        {
-        _battle.Add(Warrior1);
-        _battle.Add(Warrior2);
-        do
-        {
-                var attacker = _battle[Count % 2];
-                var defender = _battle[Count2 % 2];
-                var rollForDamage = 0;
-                
-                if (attacker.Hp >= 0)
+    {
+    _battle.Add(Warrior1);
+    _battle.Add(Warrior2);
+    do
+    {
+            var attacker = _battle[Count % 2];
+            var defender = _battle[Count2 % 2];
+            var rollForDamage = 0;
+            
+            if (attacker.Hp >= 0)
+            {
+                AttackRoll = _random.Next(20) + 1 + _battle[Count % 2].AttackMod;
+                if (AttackRoll >= _battle[Count2 % 2].Defense)
                 {
-                    AttackRoll = _random.Next(20) + 1 + _battle[Count % 2].AttackMod;
-                    if (AttackRoll >= _battle[Count2 % 2].Defense)
+                    if (AttackRoll == 20 + _battle[Count % 2].AttackMod)
                     {
-                        if (AttackRoll == 20 + _battle[Count % 2].AttackMod)
+                        await Task.Delay(3500);
+                        for (var i = 0; i < attacker.DieCount; i++)
                         {
-                            await Task.Delay(3500);
-                            for (var i = 0; i < attacker.DieCount; i++)
-                            {
-                                rollForDamage += _random.Next(attacker.DieSide);
-                            }
-                            DamageRoll = (int) (rollForDamage + 1 * attacker.Crit + attacker.AttackMod);
-                            defender.Hp -= DamageRoll;
-                            Progress = "Critical Hit! " + DisplayBattle(attacker, defender, DamageRoll);
-                            StateHasChanged();
+                            rollForDamage += _random.Next(attacker.DieSide);
                         }
-                        else
+                        DamageRoll = (int) (rollForDamage + 1 * attacker.Crit + attacker.AttackMod);
+                        defender.Hp -= DamageRoll;
+                        Progress = "Critical Hit! " + DisplayBattle(attacker, defender, DamageRoll);
+                        StateHasChanged();
+                    }
+                    else
+                    {
+                        await Task.Delay(3300);
+                        for (var i = 0; i < attacker.DieCount; i++)
                         {
-                            await Task.Delay(3300);
-                            for (var i = 0; i < attacker.DieCount; i++)
-                            {
-                                rollForDamage += _random.Next(attacker.DieSide);
-                            }
-                            DamageRoll = _random.Next(attacker.DieSide) + 1 + attacker.AttackMod;
-                            defender.Hp -= DamageRoll;
-                            Progress = DisplayBattle(attacker, defender, DamageRoll);
-                            StateHasChanged();
+                            rollForDamage += _random.Next(attacker.DieSide);
                         }
+                        DamageRoll = _random.Next(attacker.DieSide) + 1 + attacker.AttackMod;
+                        defender.Hp -= DamageRoll;
+                        Progress = DisplayBattle(attacker, defender, DamageRoll);
+                        StateHasChanged();
                     }
                 }
-
-                Count++;
-                Count2++;
-            } while (_battle[0].Hp > 0 && _battle[1].Hp > 0);
-            if (_battle[0].Hp <= 0)
-            {
-                Conclusion = DeclareWinner(_battle[1], _battle[0]);
-                StateHasChanged();
             }
-            else if (_battle[1].Hp <= 0)
+
+            Count++;
+            Count2++;
+        } while (_battle[0].Hp > 0 && _battle[1].Hp > 0);
+        if (_battle[0].Hp <= 0)
+        {
+            Conclusion = DeclareWinner(_battle[1], _battle[0]);
+            StateHasChanged();
+        }
+        else if (_battle[1].Hp <= 0)
+        {
+            Conclusion = DeclareWinner(_battle[0], _battle[1]);
+            StateHasChanged();
+        }
+    }
+
+
+    public string DisplayBattle(Warrior war1, Warrior war2, int dmg)
+    {
+        var result = war1.WarriorName + " attacked " + war2.WarriorName + " and dealt " + dmg + " damage. " + war2.WarriorName + " has " + war2.Hp + " left.";
+        return result;
+    }
+
+    //Create a function for printing the winner
+    public string DeclareWinner(Warrior winner, Warrior loser)
+    {
+        Dal.GiveWarriorXp(winner, loser);
+        var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
+        return result;
+    }
+
+    public void ActivateFromStartQuirk(Warrior wielder, Quirk q1, Quirk q2, Quirk? q3)
+    {
+        var quirks = new List<Quirk>();
+        quirks.Add(q1);
+        quirks.Add(q2);
+        if (q3 != null)
+        {
+            quirks.Add(q3);
+        }
+        foreach (var quirk in quirks)
+        {
+            switch (quirk.QuirkName)
             {
-                Conclusion = DeclareWinner(_battle[0], _battle[1]);
-                StateHasChanged();
+                case "Assassin":
+                    ActivateAssassin(wielder);
+                    break;
+                case "Master Assassin":
+                    ActivateMasterAssassin(wielder, quirks);
+                    break;
+                case "Toughness" :
+                    ActivateToughness(wielder);
+                    return;
             }
         }
+        
+    }
 
+    public void ActivateReactionaryQuirk(Warrior wielder, Quirk q1, Quirk q2, Quirk q3, Warrior target)
+    {
+        var quirks = new List<Quirk>();
+        quirks.Add(q1);
+        quirks.Add(q2);
+        quirks.Add(q3);
 
-        public string DisplayBattle(Warrior war1, Warrior war2, int dmg)
+        foreach (var quirk in quirks)
         {
-            var result = war1.WarriorName + " attacked " + war2.WarriorName + " and dealt " + dmg + " damage. " + war2.WarriorName + " has " + war2.Hp + " left.";
-            return result;
-        }
+            switch (quirk.QuirkName)
+            {
+                case "Nimble":
+                    ActivateNimble(wielder);
+                    break;
+                case "Frenzy":
+                    ActivateFrenzy(wielder);
+                    break;
+                case "Finesse":
+                    ActivateFinesse(wielder);
+                    break;
+                case "Crit-Quencher":
+                    ActivateCritQuencher(wielder);
+                    break;
 
-        //Create a function for printing the winner
-        public string DeclareWinner(Warrior winner, Warrior loser)
-        {
-            Dal.GiveWarriorXp(winner, loser);
-            var result = loser.WarriorName + " has been slain! " + winner.WarriorName + " wins!";
-            return result;
+            }
         }
+        
+    }
+
+        
 }
 

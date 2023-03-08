@@ -1,0 +1,87 @@
+﻿@using Surasshu.Interfaces
+@inject IDataAccessLayer Dal
+@model Warrior
+
+<partial name="WarriorPartial.cshtml" model="@Model" />
+
+<div class="card-body">
+    <form asp-controller="Warrior" asp-action="EquipSamuraiWithQuirks" asp-route-id="@Model.WarriorId">
+        <table class="table">
+            <tr>
+                <td>Quirk One</td>
+                <td>
+                    @if (Model.Level >= 3)
+                    {
+                        <select name="QuirkOne" id="QuirkOne">
+                            <option name="None" id="None">None</option>
+                            @if (Model.Level >= 3)
+                            {
+                                <option name="Toughness" id="Toughness">Toughness</option>
+                            }
+                            @if (Model.Level >= 6)
+                            {
+                                <option name="Parry" id="Parry">Parry</option>
+                            }
+                            @if (Model.Level >= 10)
+                            {
+                                <option name="Punish" id="Punish">Punish</option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/editing-user-action/lock-icon.png"
+                             width="25"
+                             height="30"/>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Quirk Two</td>
+                <td>
+                    @if (Model.Level >= 6)
+                    {
+                        <select name="QuirkTwo" id="QuirkTwo">
+                            <option name="None" id="None">None</option>
+                            @if (Model.Level >= 3)
+                            {
+                                <option name="Toughness" id="Toughness">Toughness</option>
+                            }
+                            @if (Model.Level >= 6)
+                            {
+                                <option name="Parry" id="Parry">Parry</option>
+                            }
+                            @if (Model.Level >= 10)
+                            {
+                                <option name="Punish" id="Punish">Punish</option>
+                            }
+                            @if (Model.Level >= 12)
+                            {
+                                <option name="Deflect" id="Deflect">Deflect</option>
+                            }
+                            @if (Model.Level >= 16)
+                            {
+                                <option name="Execution" id="Execution">Execution</option>
+                            }
+                            @if (Model.Level >= 20)
+                            {
+                                <option name="Unkillable" id="Unkillable">Unkillable</option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/editing-user-action/lock-icon.png"
+                             width="25"
+                             height="30"/>
+                    }
+                </td>
+            </tr>
+        </table>
+        
+        <input class="btn-success text-center" id="SetQuirkBtn" name="SetQuirkBtn" type="submit" value="Equip Quirk(s)"/>
+
+    </form>
+
+    <div asp-validation-summary="All" name="samurai-error" class="error-messages"></div>
+</div>
