@@ -26,9 +26,17 @@
 </div>
 
 <div class="quote">"Honor may not win power, but it wins respect. And respect earns power. Today is victory over yourself of yesterday; tomorrow is your victory over lesser men. A warrior is worthless unless he rises above others and stands strong in the midst of a storm..." </div>
-
+<br/>
 <div>Blessed with honor from lords due to great might, the Samurai offers great defense and toughness to trade blows with the strongest in the land.</div>
+<br/>
+<h1 class="display-4">Quirks</h1>
 
-
+@foreach (var quirk in Dal.GetQuirks())
+{
+    if (quirk.IsForNinja == false)
+    {
+        <partial name="QuirkListPartial" model="quirk"/>
+    }
+}
 
 </body>

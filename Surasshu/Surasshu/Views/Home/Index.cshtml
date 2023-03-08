@@ -1,11 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model IEnumerable<Surasshu.Areas.Identity.Data.SurasshuUser>
+@model Surasshu.Areas.Identity.Data.SurasshuUser
 <body class="home">
+    
+@if(Model is {IsBotAccount: true })
+{
+    <h1 class="text-center text-warning">THIS IS A BOT ACCOUNT</h1>
+}
+
 <div class="text-center">
-    <h1 class="display-4">Welcome to Surasshu</h1>
-     
+    <h1 class="display-4 title">Welcome to Surasshu</h1>
+    
+    <br/>
+
+    <br/>
+
     <h3 class="display-4">Which path will you take?</h3>
     <a asp-controller="Home" asp-action="AboutNinja">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGz5BR-UzS0eqX5j5iYeQ2VZjTjqa2rC31Nw-Xjnh6CJ1l9PlmYEyp2dwTe0_lzB1xnA&usqp=CAU"
@@ -14,6 +24,7 @@
              height="148"/>
     </a>
     
+
     <a asp-controller="Home" asp-action="AboutSamurai">
         <img src="https://static.vecteezy.com/system/resources/previews/005/644/134/original/clip-art-of-samurai-with-silhouette-design-vector.jpg"
              alt="About Samurai"
@@ -21,5 +32,14 @@
              height="148"/>
     </a>
 
+    <br/>
+
+    <h1 class="display-4 spacing">Enter the Barracks</h1>
+    <a asp-controller="Warrior" asp-action="WarriorLocker">
+        <img src="https://wallpaperaccess.com/full/255070.jpg"
+             alt="Warrior Locker"
+             with="800"
+             height="268"/>
+    </a>
 </div>
 </body>

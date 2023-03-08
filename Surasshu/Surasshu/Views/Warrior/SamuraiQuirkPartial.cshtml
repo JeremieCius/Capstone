@@ -85,3 +85,11 @@
 
     <div asp-validation-summary="All" name="samurai-error" class="error-messages"></div>
 </div>
+
+@foreach (var quirk in Dal.GetQuirks())
+{
+    if (quirk.IsForNinja == false)
+    {
+        <partial name="QuirkListPartial" model="quirk"/>
+    }
+}

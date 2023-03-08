@@ -138,3 +138,11 @@
 
     <div asp-validation-summary="All" name="ninja-error" class="error-messages"></div>
 </div>
+
+@foreach (var quirk in Dal.GetQuirks())
+{
+    if (quirk.IsForNinja)
+    {
+        <partial name="QuirkListPartial" model="quirk"/>
+    }
+}

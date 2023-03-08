@@ -1,7 +1,42 @@
-﻿
+﻿@using Surasshu.Interfaces
+@inject IDataAccessLayer Dal
 
 <body class="home">
-
     
+<h1 class="display-4">Ninja – The Assassin's Creed</h1>
+
+<div class="text-center container">
+    <div class="row">
+        <div class="col col-lg-2">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6VR6Qya568raodwPcmmUO7-IGzGqePjjYnQ&usqp=CAU"
+                width="148"
+                height="200"/>
+        </div>
+        <div class="col-md-auto">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt5P9mOL1N1eAz2C6s0VmCUrsmt9p6609teg&usqp=CAU"
+                width="148"
+                height="200"/>
+        </div>
+        <div class="col col-lg-2">
+            <img src ="https://m.media-amazon.com/images/I/711VtKxrU1L.png"
+                width="148"
+                height="200"/>
+        </div>
+    </div>
+</div>
+
+<div class="quote">"One kills a man, one is an assassin; one kills millions, one is a conqueror; one kills everybody, one is a god...." </div>
+<br/>
+<div>With movement like the wind and the bite of a cobra, the Ninja sacrifices the burdens of armor and goes straight for the KILL.</div>
+<br/>
+<h1 class="display-4">Quirks</h1>
+
+@foreach (var quirk in Dal.GetQuirks())
+{
+    if (quirk.IsForNinja)
+    {
+        <partial name="QuirkListPartial" model="quirk"/>
+    }
+}
 
 </body>

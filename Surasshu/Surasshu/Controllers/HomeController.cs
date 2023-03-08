@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Surasshu.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 using Surasshu.Interfaces;
 
 namespace Surasshu.Controllers
@@ -18,12 +19,28 @@ namespace Surasshu.Controllers
 
         public IActionResult Index()
         {
-            return View("Index", dal.GetUsersInDatabase());
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var view = View("Index");
+            if (userId == null)
+            {
+                return view;
+            }
+            else
+            {
+                view = View("Index", dal.GetUser(userId));
+            }
+
+            return view;
+        }
+
+        public IActionResult About()
+        {
+            return View("About");
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return View("Privacy");
         }
 
         public IActionResult AboutNinja()
