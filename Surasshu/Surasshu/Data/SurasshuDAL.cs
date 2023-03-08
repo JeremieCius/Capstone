@@ -84,6 +84,7 @@ namespace Surasshu.Data
                             warrior.Crit += 0.25;
                             warrior.DieCount += 1;
                             warrior.AttackMod += 1;
+                            warrior.PowerLevel += 1;
 
                             return;
                     }
@@ -109,6 +110,7 @@ namespace Surasshu.Data
                             break;
                         case 5:
                             warrior.Hp += random.Next(10) + 1;
+                            warrior.PowerLevel += 1;
                             break;
                         case 6:
                             warrior.Hp += random.Next(8) + 1;

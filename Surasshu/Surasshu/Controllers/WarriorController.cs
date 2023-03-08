@@ -50,6 +50,7 @@ namespace Surasshu.Controllers
             warrior.QuirkOneId = 16;
             warrior.QuirkTwoId = 16;
             warrior.QuirkThreeId = 16;
+            warrior.PowerLevel = 1;
 
             if (Request.Form["SelectWarriorType"] == "Ninja")
             {
@@ -136,19 +137,13 @@ namespace Surasshu.Controllers
             var w1 = dal.GetWarrior(id);
             var w2 = dal.GetWarrior(random.Next(1, dal.GetWarriorHighestIndexCount()));
 
-            var levelRange = -999999;
-
-
-            if (w2 == null || w1.UserId == w2.UserId || levelRange is >= -3 and <= 3)
+            
+            do 
             {
-                do
-                {
-                    w2 = dal.GetWarrior(random.Next(1, dal.GetWarriorHighestIndexCount()));
-                    if(w2 != null) 
-                    { levelRange = w1.Level - w2.Level; }
-
-                } while (w2 == null || w1.UserId == w2.UserId || levelRange is >= -3 and <= 3);
+                w2 = dal.GetWarrior(random.Next(1, dal.GetWarriorHighestIndexCount()));
             }
+            while (w2 == null || w1.UserId == w2.UserId || w1.PowerLevel != w2.PowerLevel) ;
+
 
             var participants = new List<Warrior> { w1, w2 };
 

@@ -38,8 +38,10 @@ namespace Surasshu.Models
         public int? QuirkTwoId { get; set; }
         public int? QuirkThreeId { get; set; }
 
+        public int PowerLevel { get; set; }
+
         public Warrior(int warriorId, string warriorName, string userId, bool isNinja, int xp, int attackMod, int dieCount, int dieSide, 
-            double crit, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId, string? imageLink, int level)
+            double crit, int defense, int hp, int? quirkOneId, int? quirkTwoId, int? quirkThreeId, string? imageLink, int level, int powerLevel)
         {
             WarriorId = warriorId;
             WarriorName = warriorName;
@@ -57,6 +59,7 @@ namespace Surasshu.Models
             QuirkThreeId = quirkThreeId;
             ImageLink = imageLink;
             Level = level;
+            PowerLevel = powerLevel;
         }
 
         public Warrior()

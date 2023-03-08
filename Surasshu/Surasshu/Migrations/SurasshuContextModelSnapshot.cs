@@ -317,6 +317,9 @@ namespace Surasshu.Migrations
                     b.Property<int>("Level")
                         .HasColumnType("int");
 
+                    b.Property<int>("PowerLevel")
+                        .HasColumnType("int");
+
                     b.Property<int?>("QuirkOneId")
                         .HasColumnType("int");
 
